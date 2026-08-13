@@ -1,0 +1,54 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import BookingButtons from "../../components/BookingButtons.astro";
+import { t } from "../../i18n";
+import { MAP_SRC, type Locale } from "../../lib/site";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const d = t(locale);
+---
+
+<Base locale={locale} title={d.location.title} description={d.location.desc}>
+  <PageHero kicker={d.location.kicker} title={d.location.h1} sub={d.location.sub} image="/images/entrance.webp" />
+
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+    <div class="grid gap-10 lg:grid-cols-2 lg:items-start">
+      <div data-reveal>
+        <div class="overflow-hidden rounded-2xl border border-emp-line" data-reveal-child>
+          <iframe
+            src={MAP_SRC}
+            title={d.location.mapTitle}
+            class="h-[340px] w-full"
+            style="border:0; filter: grayscale(0.2) contrast(1.05);"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+        <p class="mt-3 text-xs text-emp-muted" data-reveal-child>{d.location.mapNote}</p>
+      </div>
+      <div data-reveal>
+        <dl class="divide-y divide-emp-line rounded-2xl border border-emp-line bg-emp-bg-2/60 overflow-hidden" data-reveal-child>
+          {
+            d.location.facts.map((f) => (
+              <div class="px-6 py-4">
+                <dt class="text-sm font-semibold text-emp-gold/90">{f.k}</dt>
+                <dd class="mt-1 text-sm text-emp-ink/85">{f.v}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        <div class="mt-8" data-reveal-child>
+          <h2 class="font-serif text-xl font-bold text-emp-ink">{d.location.ctaH2}</h2>
+          <p class="mt-2 text-sm text-emp-muted">{d.location.ctaP}</p>
+          <div class="mt-5">
+            <BookingButtons locale={locale} stack />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

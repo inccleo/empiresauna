@@ -1,0 +1,280 @@
+---
+import { CONTACT, type Locale } from "../lib/site";
+import { t } from "../i18n";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const d = t(locale);
+const payload = {
+  interests: d.qm.interests,
+  people: d.qm.people,
+  times: d.qm.times,
+  contact: {
+    wa: CONTACT.whatsapp,
+    tg: CONTACT.telegram,
+    line: CONTACT.line,
+  },
+  copy: {
+    hello: d.conciergeHello,
+    q: d.conciergeQ,
+    askPeople: d.conciergeAskPeople,
+    askTime: d.conciergeAskTime,
+    received: d.conciergeReceived,
+    restart: d.conciergeRestart,
+    need: d.conciergeNeed,
+    want: d.conciergeWant,
+    people: d.conciergePeopleLbl,
+    time: d.conciergeTimeLbl,
+    otherConfirm: d.conciergeOtherConfirm,
+    pickChannel: d.conciergePickChannel,
+    wa: d.conciergeWa,
+    tg: d.conciergeTg,
+    reset: d.conciergeReset,
+    typing: d.conciergeTyping,
+    otherTime: d.conciergeOtherTime,
+    waPrefix: d.conciergeWaPrefix,
+    nowArrive: d.conciergeNowArrive,
+    timeAbout: d.conciergeTimeAbout,
+    confirmLater: d.conciergeConfirmLater,
+    waSuffix: d.conciergeWaSuffix,
+    moreInfo: d.conciergeMoreInfo,
+    close: d.close,
+    closePanel: d.conciergeClose,
+    open: d.conciergeOpen,
+    name: d.conciergeName,
+    sub: d.conciergeSub,
+    hint: d.conciergeHint,
+    launcher: d.conciergeLauncherSub,
+    dialog: d.conciergeDialog,
+  },
+};
+const gem = `<svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true" fill="none" stroke="#c8a24a" stroke-width="4.5"><circle cx="32" cy="32" r="25"></circle><rect x="23" y="23" width="18" height="18" rx="1.5" stroke-width="3.5" stroke="#e6c878"></rect></svg>`;
+---
+
+<button type="button" class="emp-cg-scrim" data-open="false" data-cg-scrim aria-label={d.conciergeClose}></button>
+<div class="emp-cg-root" data-open="false" data-cg-root>
+  <script type="application/json" data-cg-payload set:html={JSON.stringify(payload)} />
+  <div class="emp-cg-window" role="dialog" aria-label={d.conciergeDialog} aria-hidden="true">
+    <div class="emp-cg-head">
+      <span class="emp-cg-avatar" set:html={gem} />
+      <span class="emp-cg-head-text">
+        <span class="emp-cg-title">{d.conciergeName}</span>
+        <span class="emp-cg-sub"><span class="emp-cg-dot"></span>{d.conciergeSub}</span>
+      </span>
+      <button type="button" class="emp-cg-x" data-cg-close aria-label={d.close}>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+          ><path d="M6 6l12 12M18 6 6 18"></path></svg
+        >
+      </button>
+    </div>
+    <div class="emp-cg-body" data-cg-body></div>
+    <div class="emp-cg-foot">
+      <div class="emp-cg-chips emp-cg-chips-grid2" data-cg-chips></div>
+      <p class="emp-cg-note">{d.conciergeHint}</p>
+    </div>
+  </div>
+  <button type="button" class="emp-cg-launcher" data-cg-open aria-expanded="false" aria-label={d.conciergeOpen}>
+    <span class="emp-cg-launcher-ring" set:html={gem} />
+    <span class="emp-cg-launcher-text">
+      <span class="emp-cg-launcher-label">{d.conciergeName}</span>
+      <span class="emp-cg-launcher-hint">{d.conciergeLauncherSub}</span>
+    </span>
+    <span class="emp-cg-ping" aria-hidden="true"></span>
+  </button>
+</div>
+
+<script>
+  type Opt = { key: string; label: string };
+  type Payload = {
+    interests: Opt[];
+    people: Opt[];
+    times: Opt[];
+    contact: { wa: string; tg: string; line: string };
+    copy: Record<string, string>;
+  };
+
+  const root = document.querySelector<HTMLElement>("[data-cg-root]");
+  const scrim = document.querySelector<HTMLElement>("[data-cg-scrim]");
+  const launcher = document.querySelector<HTMLElement>("[data-cg-open]");
+  const body = document.querySelector<HTMLElement>("[data-cg-body]");
+  const chips = document.querySelector<HTMLElement>("[data-cg-chips]");
+  const win = root?.querySelector<HTMLElement>(".emp-cg-window");
+  const raw = document.querySelector("[data-cg-payload]")?.textContent;
+  if (!root || !body || !chips || !raw) {
+    /* missing markup */
+  } else {
+    const data = JSON.parse(raw) as Payload;
+    const c = data.copy;
+    let open = false;
+    let started = false;
+    let step: "interest" | "people" | "time" | "done" = "interest";
+    let typing = false;
+    let interest: Opt | null = null;
+    let people: Opt | null = null;
+    let time: Opt | null = null;
+    let seq = 0;
+
+    const waIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.738-.978zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"></path></svg>`;
+
+    const setOpen = (next: boolean) => {
+      open = next;
+      root.dataset.open = String(next);
+      scrim?.setAttribute("data-open", String(next));
+      launcher?.setAttribute("aria-expanded", String(next));
+      win?.setAttribute("aria-hidden", String(!next));
+      if (next && !started) {
+        started = true;
+        void intro();
+      }
+    };
+
+    const scrollBottom = () => {
+      body.scrollTop = body.scrollHeight;
+    };
+
+    const addMsg = (from: "bot" | "user", text: string) => {
+      const el = document.createElement("div");
+      el.className = `emp-cg-msg ${from === "bot" ? "is-bot" : "is-user"}`;
+      el.textContent = text;
+      body.appendChild(el);
+      scrollBottom();
+    };
+
+    const setTyping = (on: boolean) => {
+      typing = on;
+      body.querySelector(".emp-cg-typing")?.remove();
+      if (on) {
+        const el = document.createElement("div");
+        el.className = "emp-cg-msg is-bot emp-cg-typing";
+        el.setAttribute("aria-label", c.typing);
+        el.innerHTML = "<span></span><span></span><span></span>";
+        body.appendChild(el);
+        scrollBottom();
+      }
+      renderChips();
+    };
+
+    const say = (text: string, delay: number) =>
+      new Promise<void>((resolve) => {
+        setTyping(true);
+        window.setTimeout(() => {
+          setTyping(false);
+          addMsg("bot", text);
+          resolve();
+        }, delay);
+      });
+
+    const waText = () => {
+      const want = interest?.key === "info" ? c.moreInfo : (interest?.label ?? "");
+      const when =
+        time?.key === "other" ? c.confirmLater : time?.key === "now" ? c.nowArrive : `${c.timeAbout}${time?.label ?? ""}`;
+      return `${c.waPrefix}${want}，${when}，${people?.label ?? ""}${c.waSuffix}`;
+    };
+
+    const addReco = () => {
+      const want = interest?.key === "info" ? c.moreInfo : (interest?.label ?? "");
+      const when = time?.key === "other" ? c.otherConfirm : (time?.label ?? "");
+      const num = data.contact.wa.replace(/[^0-9]/g, "");
+      const tg = data.contact.tg.replace("@", "");
+      const msg = encodeURIComponent(waText());
+      const el = document.createElement("div");
+      el.className = "emp-cg-reco";
+      el.innerHTML = `<div class="emp-cg-reco-pad">
+        <p class="emp-cg-reco-eyebrow">${c.need}</p>
+        <ul class="emp-cg-reco-list">
+          <li><span>${c.want}</span>${want}</li>
+          <li><span>${c.people}</span>${people?.label ?? ""}</li>
+          <li><span>${c.time}</span>${when}</li>
+        </ul>
+        <p class="emp-cg-reco-match">${c.pickChannel}</p>
+        <a href="https://wa.me/${num}?text=${msg}" target="_blank" rel="noopener" class="emp-cg-btn emp-cg-btn-wa">${waIcon}${c.wa}</a>
+        <a href="https://t.me/${tg}?text=${msg}" target="_blank" rel="noopener" class="emp-cg-btn emp-cg-btn-ghost"><img src="/icons/telegram.svg" width="16" height="16" alt="">${c.tg}</a>
+        <div class="emp-cg-btn-row">
+          <a href="${data.contact.line}" target="_blank" rel="noopener" class="emp-cg-btn emp-cg-btn-ghost emp-cg-btn-half"><img src="/icons/line.svg" width="16" height="16" alt="">LINE</a>
+          <button type="button" class="emp-cg-btn emp-cg-btn-ghost emp-cg-btn-half" data-cg-wechat><img src="/icons/wechat.svg" width="16" height="16" alt="">WeChat</button>
+        </div>
+      </div>`;
+      body.appendChild(el);
+      el.querySelector("[data-cg-wechat]")?.addEventListener("click", () => {
+        setOpen(false);
+        window.setTimeout(() => document.dispatchEvent(new CustomEvent("open-wechat-modal")), 60);
+      });
+      scrollBottom();
+    };
+
+    const renderChips = () => {
+      chips.innerHTML = "";
+      if (typing) {
+        chips.className = "emp-cg-chips";
+        return;
+      }
+      if (step === "done") {
+        chips.className = "emp-cg-chips";
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "emp-cg-chip emp-cg-chip-muted";
+        btn.textContent = c.reset;
+        btn.addEventListener("click", () => {
+          interest = people = time = null;
+          step = "interest";
+          void say(c.restart, 500);
+        });
+        chips.appendChild(btn);
+        return;
+      }
+      const list = step === "interest" ? data.interests : step === "people" ? data.people : data.times;
+      chips.className =
+        step === "interest" ? "emp-cg-chips emp-cg-chips-grid2" : "emp-cg-chips emp-cg-chips-row";
+      for (const opt of list) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "emp-cg-chip";
+        btn.innerHTML = `<span>${opt.label}</span>`;
+        btn.addEventListener("click", () => void pick(opt));
+        chips.appendChild(btn);
+      }
+    };
+
+    const pick = async (opt: Opt) => {
+      const token = ++seq;
+      if (step === "interest") {
+        interest = opt;
+        step = "people";
+        addMsg("user", opt.label);
+        await say(c.askPeople, 620);
+      } else if (step === "people") {
+        people = opt;
+        step = "time";
+        addMsg("user", opt.label);
+        await say(c.askTime, 620);
+      } else if (step === "time") {
+        time = opt;
+        step = "done";
+        addMsg("user", opt.key === "other" ? c.otherTime : opt.label);
+        await say(c.received, 700);
+        if (token !== seq) return;
+        setTyping(true);
+        await new Promise((r) => window.setTimeout(r, 350));
+        if (token !== seq) return;
+        setTyping(false);
+        addReco();
+        renderChips();
+      }
+    };
+
+    const intro = async () => {
+      await say(c.hello, 600);
+      await say(c.q, 650);
+    };
+
+    launcher?.addEventListener("click", () => setOpen(!open));
+    scrim?.addEventListener("click", () => setOpen(false));
+    document.querySelector("[data-cg-close]")?.addEventListener("click", () => setOpen(false));
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && open) setOpen(false);
+    });
+    renderChips();
+  }
+</script>

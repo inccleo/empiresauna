@@ -1,0 +1,61 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import BookingButtons from "../../components/BookingButtons.astro";
+import TipBox from "../../components/TipBox.astro";
+import { t } from "../../i18n";
+import { CONTACT, waLink, tgLink, type Locale } from "../../lib/site";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const d = t(locale);
+---
+
+<Base locale={locale} title={d.contact.title} description={d.contact.desc}>
+  <PageHero kicker={d.contact.kicker} title={d.contact.h1} sub={d.contact.sub} image="/images/white-marble-room.webp" />
+
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+    <div class="rounded-3xl border border-emp-gold/30 bg-emp-bg-2 emp-marble p-8 sm:p-10 text-center" data-reveal>
+      <h2 class="font-serif text-2xl font-bold text-emp-ink" data-reveal-child>{d.contact.choose}</h2>
+      <div class="mt-8" data-reveal-child>
+        <BookingButtons locale={locale} justify="center" />
+      </div>
+      <dl class="mt-8 grid gap-3 grid-cols-2 lg:grid-cols-4 text-left">
+        <a href={waLink(locale)} class="block rounded-xl border border-emp-line bg-emp-bg-3/50 px-5 py-4 hover:border-emp-gold/40 transition-colors">
+          <dt class="text-xs uppercase tracking-widest text-emp-muted">{d.contact.channels[0].k}</dt>
+          <dd class="mt-1 text-sm font-semibold text-emp-gold break-all">{d.contact.channels[0].v}</dd>
+        </a>
+        <a href={tgLink(locale)} class="block rounded-xl border border-emp-line bg-emp-bg-3/50 px-5 py-4 hover:border-emp-gold/40 transition-colors">
+          <dt class="text-xs uppercase tracking-widest text-emp-muted">{d.contact.channels[1].k}</dt>
+          <dd class="mt-1 text-sm font-semibold text-emp-gold break-all">{d.contact.channels[1].v}</dd>
+        </a>
+        <a href={CONTACT.line} class="block rounded-xl border border-emp-line bg-emp-bg-3/50 px-5 py-4 hover:border-emp-gold/40 transition-colors">
+          <dt class="text-xs uppercase tracking-widest text-emp-muted">{d.contact.channels[2].k}</dt>
+          <dd class="mt-1 text-sm font-semibold text-emp-gold break-all">{d.contact.channels[2].v}</dd>
+        </a>
+        <button type="button" data-wechat-trigger class="block rounded-xl border border-emp-line bg-emp-bg-3/50 px-5 py-4 w-full text-left hover:border-emp-gold/40 transition-colors">
+          <dt class="text-xs uppercase tracking-widest text-emp-muted">{d.contact.channels[3].k}</dt>
+          <dd class="mt-1 text-sm font-semibold text-emp-gold break-all">{d.contact.channels[3].v}</dd>
+        </button>
+      </dl>
+    </div>
+
+    <ul class="mt-10 space-y-2.5 text-sm text-emp-muted">
+      {
+        d.contact.facts.map((f) => (
+          <li class="flex items-start gap-2.5">
+            <span class="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emp-gold"></span>
+            <span>{f}</span>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="mt-10">
+      <TipBox locale={locale} />
+    </div>
+    <p class="mt-8 rounded-xl border border-emp-line bg-emp-bg-2/60 px-5 py-4 text-center text-xs text-emp-muted/90">{d.contact.note}</p>
+  </section>
+</Base>

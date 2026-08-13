@@ -1,0 +1,45 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { t } from "../../i18n";
+import { prefix, type Locale } from "../../lib/site";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const d = t(locale);
+const p = prefix(locale);
+---
+
+<Base locale={locale} title={d.why.title} description={d.why.desc}>
+  <PageHero kicker={d.why.kicker} title={d.why.h1} sub={d.why.sub} image="/images/marble-suite-room.webp" />
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+    <p class="text-base leading-relaxed text-emp-muted" data-reveal>{d.why.lead}</p>
+    <div class="mt-10 space-y-4" data-reveal>
+      {
+        d.why.items.map((item) => (
+          <div class="flex gap-4 rounded-2xl border border-emp-line bg-emp-bg-2/60 p-6" data-reveal-child>
+            <span class="font-serif text-2xl font-bold text-emp-gold/70">{item.n}</span>
+            <div>
+              <h2 class="font-serif text-xl font-bold text-emp-gold">{item.t}</h2>
+              <p class="mt-2 text-sm leading-relaxed text-emp-muted">{item.d}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+    <p class="mt-10 text-sm leading-relaxed text-emp-muted" data-reveal>
+      {locale === "zh-CN" ? "想了解更多？看看 " : "想了解更多？看看 "}
+      <a href={`${p}/rooms/`} class="text-emp-gold underline-offset-2 hover:underline">{locale === "zh-CN" ? "房型套房" : "房型套房"}</a>、
+      <a href={`${p}/pricing/`} class="text-emp-gold underline-offset-2 hover:underline">{locale === "zh-CN" ? "价格收费" : "價格收費"}</a>
+      {locale === "zh-CN" ? " 或 " : " 或 "}
+      <a href={`${p}/guide/`} class="text-emp-gold underline-offset-2 hover:underline">{locale === "zh-CN" ? "澳门桑拿攻略" : "澳門桑拿攻略"}</a>。
+    </p>
+    <div class="mt-12">
+      <CtaBand locale={locale} title={d.why.ctaH2} sub={d.why.ctaP} variant="card" ink />
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,98 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import TipBox from "../../components/TipBox.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { t } from "../../i18n";
+import type { Locale } from "../../lib/site";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const d = t(locale);
+---
+
+<Base locale={locale} title={d.pricing.title} description={d.pricing.desc}>
+  <PageHero kicker={d.pricing.kicker} title={d.pricing.h1} sub={d.pricing.sub} />
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+    <div class="rounded-3xl border border-emp-gold/30 bg-emp-bg-2 emp-marble p-8 sm:p-12 text-center" data-reveal>
+      <p class="text-xs font-semibold uppercase tracking-[0.35em] text-emp-gold/80" data-reveal-child>{d.pricing.publicLabel}</p>
+      <p class="mt-4 font-serif text-4xl sm:text-5xl font-bold emp-grad-text" data-reveal-child>{d.pricing.publicPrice}</p>
+      <p class="mt-4 text-emp-muted" data-reveal-child>{d.pricing.publicNote}</p>
+    </div>
+    <div class="mt-6 rounded-2xl border border-emp-gold/30 bg-emp-bg-3/50 p-6 text-center" data-reveal>
+      <p class="text-sm font-semibold text-emp-gold" data-reveal-child>{d.pricing.perkTitle}</p>
+      <p class="mt-2 text-sm leading-relaxed text-emp-muted" data-reveal-child>{d.pricing.perkP}</p>
+      <p class="mt-2 text-sm leading-relaxed text-emp-muted" data-reveal-child>{d.pricing.perkNote}</p>
+    </div>
+    <dl class="mt-10 divide-y divide-emp-line rounded-2xl border border-emp-line bg-emp-bg-2/60 overflow-hidden" data-reveal>
+      {
+        d.pricing.facts.map((f) => (
+          <div class="grid grid-cols-3 gap-4 px-6 py-4" data-reveal-child>
+            <dt class="text-sm font-semibold text-emp-gold/90">{f.k}</dt>
+            <dd class="col-span-2 text-sm text-emp-ink/85">{f.v}</dd>
+          </div>
+        ))
+      }
+    </dl>
+
+    <div class="mt-14" data-reveal>
+      <div class="text-center" data-reveal-child>
+        <p class="text-xs font-semibold uppercase tracking-[0.35em] text-emp-gold/80">{d.pricing.menuKicker}</p>
+        <h2 class="mt-3 font-serif text-2xl sm:text-3xl font-bold text-emp-ink">{d.pricing.menuH2}</h2>
+        <p class="mx-auto mt-3 max-w-xl text-sm text-emp-muted">{d.pricing.menuP}</p>
+      </div>
+      <div class="mt-8 grid gap-3 sm:grid-cols-2">
+        {
+          d.pricing.series.map((s, i) => (
+            <div
+              class:list={[
+                "rounded-2xl border border-emp-line bg-emp-bg-2/60 p-6 hover:border-emp-gold/40 transition-colors",
+                i === d.pricing.series.length - 1 && "sm:col-span-2 border-emp-gold/40",
+              ]}
+            >
+              <span class="text-[10px] font-bold tracking-[0.3em] uppercase text-emp-gold/80">{s.badge}</span>
+              <div class="mt-2 flex items-baseline justify-between gap-4">
+                <h3 class="font-serif text-lg font-bold text-emp-ink">{s.t}</h3>
+                <p class="font-serif text-xl font-bold emp-grad-text whitespace-nowrap">{s.price}</p>
+              </div>
+              <p class="text-[11px] tracking-[0.18em] uppercase text-emp-muted">{s.en}</p>
+              <p class="mt-2 text-xs leading-relaxed text-emp-muted">{s.d}</p>
+            </div>
+          ))
+        }
+      </div>
+      <p class="mt-6 text-center text-xs text-emp-muted">{d.pricing.disclaimer}</p>
+    </div>
+
+    <div class="mt-14" data-reveal>
+      <div class="text-center" data-reveal-child>
+        <p class="text-xs font-semibold uppercase tracking-[0.35em] text-emp-gold/80">{d.pricing.extrasKicker}</p>
+        <h2 class="mt-3 font-serif text-2xl sm:text-3xl font-bold text-emp-ink">{d.pricing.extrasH2}</h2>
+        <p class="mx-auto mt-3 max-w-xl text-sm text-emp-muted">{d.pricing.extrasP}</p>
+      </div>
+      <div class="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-3">
+        {
+          d.extras.map((x, i) => (
+            <div class="rounded-2xl border border-emp-line bg-emp-bg-2/60 p-5 hover:border-emp-gold/40 transition-colors" data-reveal-child>
+              <div class="flex items-center justify-between">
+                <span class="font-serif text-sm font-bold text-emp-gold">{String(i + 1).padStart(2, "0")}</span>
+                <span class="text-[11px] text-emp-muted">{d.pricing.mins}</span>
+              </div>
+              <h3 class="mt-2 text-base font-semibold text-emp-ink">{x.t}</h3>
+              <p class="mt-1 text-xs leading-relaxed text-emp-muted">{x.d}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="mt-12">
+      <TipBox locale={locale} />
+    </div>
+  </section>
+
+  <CtaBand locale={locale} title={d.pricing.ctaH2} ink />
+</Base>

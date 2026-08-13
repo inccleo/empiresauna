@@ -1,0 +1,81 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import TipBox from "../../components/TipBox.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { t } from "../../i18n";
+import { prefix, type Locale } from "../../lib/site";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const d = t(locale);
+const p = prefix(locale);
+const priceLabel = locale === "zh-CN" ? "价格与收费" : "價格與收費";
+const overnightLabel = locale === "zh-CN" ? "澳门桑拿过夜指南" : "澳門桑拿過夜指南";
+---
+
+<Base locale={locale} title={d.guide.title} description={d.guide.desc}>
+  <PageHero kicker={d.guide.kicker} title={d.guide.h1} sub={d.guide.sub} image="/images/grand-staircase.webp" />
+
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 space-y-12">
+    <section data-reveal>
+      <h2 class="font-serif text-2xl font-bold text-emp-gold" data-reveal-child>{d.guide.whatH2}</h2>
+      <p class="mt-4 text-base leading-relaxed text-emp-muted" data-reveal-child>{d.guide.whatP}</p>
+    </section>
+
+    <section data-reveal>
+      <h2 class="font-serif text-2xl font-bold text-emp-gold" data-reveal-child>{d.guide.flowH2}</h2>
+      <ol class="mt-6 space-y-4" data-reveal>
+        {
+          d.guide.steps.map((s, i) => (
+            <li class="flex gap-4 rounded-2xl border border-emp-line bg-emp-bg-2/60 p-5" data-reveal-child>
+              <span class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-emp-gold font-serif font-bold text-[#0a0a0c]">
+                {i + 1}
+              </span>
+              <div>
+                <h3 class="font-semibold text-emp-ink">{s.t}</h3>
+                <p class="mt-1 text-sm leading-relaxed text-emp-muted">{s.d}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section data-reveal>
+      <h2 class="font-serif text-2xl font-bold text-emp-gold" data-reveal-child>{d.guide.feeH2}</h2>
+      <p class="mt-4 text-base leading-relaxed text-emp-muted" data-reveal-child>
+        {locale === "zh-CN"
+          ? "巨亨桑拿对外公开价位为 MOP 1,088 – 6,388、免加一服务费。场内另设 8 款「小工」VIP 加值服务（每款约 20 分钟），详情可参考 "
+          : "巨亨桑拿對外公開價位為 MOP 1,088 – 6,388、免加一服務費。場內另設 8 款「小工」VIP 加值服務（每款約 20 分鐘），詳情可參考 "}
+        <a href={`${p}/pricing/`} class="text-emp-gold underline-offset-2 hover:underline">{priceLabel}</a>
+        {locale === "zh-CN"
+          ? "。24 小时营业、可付费过夜，过夜玩法可参考 "
+          : "。24 小時營業、可付費過夜，過夜玩法可參考 "}
+        <a href={`${p}/overnight/`} class="text-emp-gold underline-offset-2 hover:underline">{overnightLabel}</a>。
+      </p>
+    </section>
+
+    <section data-reveal>
+      <h2 class="font-serif text-2xl font-bold text-emp-gold" data-reveal-child>{d.guide.tipsH2}</h2>
+      <ul class="mt-5 space-y-2.5">
+        {
+          d.guide.tips.map((tip) => (
+            <li class="flex items-start gap-2.5 text-sm text-emp-muted">
+              <span class="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-emp-gold"></span>
+              <span>{tip}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <div class="mt-12">
+      <TipBox locale={locale} />
+    </div>
+
+    <CtaBand locale={locale} title={d.guide.ctaH2} sub={d.guide.ctaP} variant="card" ink />
+  </article>
+</Base>

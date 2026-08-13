@@ -1,0 +1,62 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { t } from "../../i18n";
+import type { Locale } from "../../lib/site";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const d = t(locale);
+---
+
+<Base locale={locale} title={d.about.title} description={d.about.desc}>
+  <PageHero kicker={d.about.kicker} title={d.about.h1} sub={d.about.sub} image="/images/grand-staircase.webp" />
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 space-y-6 text-base leading-relaxed text-emp-muted" data-reveal>
+    <p data-reveal-child>
+      <span class="text-emp-gold font-semibold">{d.about.p1a}</span>{d.about.p1b}
+    </p>
+    <p data-reveal-child>{d.about.p2}</p>
+    <p data-reveal-child>{d.about.p3}</p>
+    <p class="rounded-xl border border-emp-line bg-emp-bg-2/60 px-5 py-4 text-sm text-emp-muted/90" data-reveal-child>
+      {d.about.note}
+    </p>
+  </section>
+
+  <section class="bg-emp-bg-2 emp-marble border-y border-emp-line">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+      <h2 class="text-center font-serif text-3xl font-bold text-emp-ink" data-reveal>{d.about.persistH2}</h2>
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" data-reveal>
+        {
+          d.home.features.map((f) => (
+            <div class="rounded-2xl border border-emp-line bg-emp-bg-3/60 p-7" data-reveal-child>
+              <h3 class="font-serif text-xl font-bold text-emp-gold">{f.t}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-emp-muted">{f.d}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="grid gap-4 sm:grid-cols-3" data-reveal>
+      {
+        [
+          { src: "/images/cover-bath-pools.webp", alt: locale === "zh-CN" ? "巨亨桑拿场馆实景" : "巨亨桑拿場館實景" },
+          { src: "/images/water-bed-suite.webp", alt: locale === "zh-CN" ? "巨亨桑拿场馆实景" : "巨亨桑拿場館實景" },
+          { src: "/images/atrium-restaurant.webp", alt: locale === "zh-CN" ? "巨亨桑拿场馆实景" : "巨亨桑拿場館實景" },
+        ].map((img) => (
+          <div class="overflow-hidden rounded-xl border border-emp-line" data-reveal-child>
+            <img src={img.src} alt={img.alt} class="aspect-[4/3] w-full object-cover" />
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <CtaBand locale={locale} title={d.about.ctaH2} variant="compact" />
+</Base>

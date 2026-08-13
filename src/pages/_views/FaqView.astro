@@ -1,0 +1,39 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { t } from "../../i18n";
+import type { Locale } from "../../lib/site";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const d = t(locale);
+---
+
+<Base locale={locale} title={d.faq.title} description={d.faq.desc}>
+  <PageHero kicker={d.faq.kicker} title={d.faq.h1} sub={d.faq.sub} />
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+    <div class="space-y-3" data-reveal>
+      {
+        d.faq.items.map((item) => (
+          <details class="emp-faq group rounded-2xl border border-emp-line bg-emp-bg-2/60 overflow-hidden" data-reveal-child>
+            <summary class="flex cursor-pointer items-center justify-between gap-4 px-6 py-5 text-base font-semibold text-emp-ink marker:content-none">
+              <span>{item.q}</span>
+              <svg class="h-5 w-5 flex-shrink-0 text-emp-gold transition-transform group-open:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </summary>
+            <div class="px-6 pb-6 text-sm leading-relaxed text-emp-muted">{item.a}</div>
+          </details>
+        ))
+      }
+    </div>
+    <div class="mt-16">
+      <CtaBand locale={locale} title={d.faq.ctaH2} sub={d.faq.ctaP} ink />
+    </div>
+  </section>
+</Base>

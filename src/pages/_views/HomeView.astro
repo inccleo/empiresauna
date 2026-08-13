@@ -1,0 +1,284 @@
+---
+import Base from "../../layouts/Base.astro";
+import BookingButtons from "../../components/BookingButtons.astro";
+import TipBox from "../../components/TipBox.astro";
+import Lightbox from "../../components/Lightbox.astro";
+import QuickMatch from "../../components/QuickMatch.astro";
+import { t } from "../../i18n";
+import { GALLERY, MAP_SRC, prefix, type Locale } from "../../lib/site";
+import { NEWS, formatNewsDate } from "../../content/news";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const d = t(locale);
+const p = prefix(locale);
+const homeNews = NEWS.slice(0, 3);
+const env = GALLERY.slice(0, 6);
+---
+
+<Base locale={locale} title={d.home.title} description={d.home.desc}>
+  <section class="relative flex flex-col min-h-[92vh] overflow-hidden">
+    <div class="absolute inset-0">
+      <img
+        src="/images/cover-bath-pools.webp"
+        alt={locale === "zh-CN" ? "巨亨桑拿大理石浴池" : "巨亨桑拿大理石浴池"}
+        class="emp-ken h-full w-full object-cover"
+        width="1024"
+        height="1024"
+      />
+      <div class="absolute inset-0 bg-gradient-to-b from-emp-bg/80 via-emp-bg/55 to-emp-bg"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-emp-bg/85 via-transparent to-transparent"></div>
+    </div>
+    <div class="relative flex-1 flex items-center justify-center w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-12 sm:pb-16">
+      <div class="max-w-2xl w-full text-center is-in" data-reveal>
+        <p class="text-xs font-semibold uppercase tracking-[0.4em] text-emp-gold" data-reveal-child style="--reveal-i: 0;">
+          {d.home.kicker}
+        </p>
+        <h1 class="mt-6 sm:mt-8 flex justify-center" data-reveal-child style="--reveal-i: 1;">
+          <img
+            src="/logo/logo-emblem.svg"
+            alt={d.home.h1}
+            width="1716"
+            height="979"
+            class="w-full max-w-[280px] sm:max-w-[360px] md:max-w-[420px] h-auto object-contain drop-shadow-[0_8px_32px_rgba(0,0,0,0.45)]"
+          />
+        </h1>
+        <p class="mt-6 sm:mt-8 text-xl sm:text-2xl font-medium text-emp-ink" data-reveal-child style="--reveal-i: 2;">{d.home.sub}</p>
+        <p class="mt-5 mx-auto max-w-xl text-base sm:text-lg leading-relaxed text-emp-muted" data-reveal-child style="--reveal-i: 3;">
+          {d.home.lead}
+        </p>
+        <div class="mt-8" data-reveal-child style="--reveal-i: 4;">
+          <BookingButtons locale={locale} justify="center" />
+        </div>
+      </div>
+    </div>
+    <div class="relative border-t border-emp-line bg-emp-bg/70 backdrop-blur-sm">
+      <div class="max-w-7xl mx-auto grid grid-cols-2 sm:grid-cols-4 divide-x divide-y sm:divide-y-0 divide-emp-line">
+        {
+          d.home.stats.map((s) => (
+            <div class="px-4 py-4 sm:py-5 text-center">
+              <div class="text-[11px] uppercase tracking-widest text-emp-muted">{s.k}</div>
+              <div class="mt-1 text-sm sm:text-base font-semibold text-emp-gold">{s.v}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 text-center" data-reveal>
+    <p class="text-xs font-semibold uppercase tracking-[0.35em] text-emp-gold/80" data-reveal-child>{d.home.aboutKicker}</p>
+    <h2 class="mt-4 font-serif text-3xl sm:text-4xl font-bold text-emp-ink" data-reveal-child>{d.home.aboutH2}</h2>
+    <p class="mx-auto mt-6 max-w-2xl text-base sm:text-lg leading-relaxed text-emp-muted" data-reveal-child>{d.home.aboutP}</p>
+    <a
+      href={`${p}/about/`}
+      class="mt-7 inline-flex items-center gap-1.5 text-sm font-semibold text-emp-gold hover:text-emp-gold-light transition-colors"
+      data-reveal-child>{d.home.aboutLink}</a
+    >
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8 sm:pb-12" data-reveal>
+    <div class="text-center" data-reveal-child>
+      <p class="text-xs font-semibold uppercase tracking-[0.35em] text-emp-gold/80">{d.home.qmKicker}</p>
+      <h2 class="mt-3 font-serif text-3xl sm:text-4xl font-bold text-emp-ink">{d.home.qmH2}</h2>
+      <p class="mx-auto mt-3 max-w-xl text-sm text-emp-muted">{d.home.qmP}</p>
+    </div>
+    <div class="mt-8" data-reveal-child>
+      <QuickMatch locale={locale} />
+    </div>
+  </section>
+
+  <section class="bg-emp-bg-2 emp-marble border-y border-emp-line">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
+      <h2 class="text-center font-serif text-3xl sm:text-4xl font-bold text-emp-ink" data-reveal>{d.home.featuresH2}</h2>
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" data-reveal>
+        {
+          d.home.features.map((f) => (
+            <div class="rounded-2xl border border-emp-line bg-emp-bg-3/60 p-7 hover:border-emp-gold/40 transition-colors" data-reveal-child>
+              <h3 class="font-serif text-xl font-bold text-emp-gold">{f.t}</h3>
+              <p class="mt-3 text-sm leading-relaxed text-emp-muted">{f.d}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28">
+    <div class="flex items-end justify-between gap-4" data-reveal>
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-[0.35em] text-emp-gold/80">{d.home.roomsKicker}</p>
+        <h2 class="mt-3 font-serif text-3xl sm:text-4xl font-bold text-emp-ink">{d.home.roomsH2}</h2>
+      </div>
+      <a href={`${p}/rooms/`} class="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold text-emp-gold hover:text-emp-gold-light transition-colors"
+        >{d.home.roomsAll}</a
+      >
+    </div>
+    <div class="mt-10 grid gap-6 sm:grid-cols-2" data-reveal>
+      {
+        d.home.rooms.map((r) => (
+          <article class="group overflow-hidden rounded-2xl border border-emp-line bg-emp-bg-2" data-reveal-child>
+            <div class="aspect-[4/3] overflow-hidden">
+              <img src={r.img} alt={r.alt} class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            </div>
+            <div class="p-6">
+              <h3 class="font-serif text-2xl font-bold text-emp-gold">{r.t}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-emp-muted">{r.d}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+    <a href={`${p}/rooms/`} class="mt-8 inline-flex sm:hidden items-center gap-1.5 text-sm font-semibold text-emp-gold">{d.home.roomsAll}</a>
+  </section>
+
+  <section class="bg-emp-bg-2 border-y border-emp-line">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
+      <div class="text-center" data-reveal>
+        <p class="text-xs font-semibold uppercase tracking-[0.35em] text-emp-gold/80">{d.home.envKicker}</p>
+        <h2 class="mt-3 font-serif text-3xl sm:text-4xl font-bold text-emp-ink">{d.home.envH2}</h2>
+      </div>
+      <div class="mt-12 grid grid-cols-2 lg:grid-cols-3 gap-4" data-reveal>
+        {
+          env.map((g) => (
+            <button
+              type="button"
+              class="group relative block overflow-hidden rounded-xl border border-emp-line text-left"
+              data-reveal-child
+              data-lightbox={g.src}
+              data-caption={locale === "zh-CN" ? g.captionHans : g.captionHant}
+            >
+              <img
+                src={g.src}
+                alt={locale === "zh-CN" ? g.captionHans : g.captionHant}
+                class="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <span class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-emp-bg/90 to-transparent px-4 pb-3 pt-8 text-sm font-medium text-emp-ink">
+                {locale === "zh-CN" ? g.captionHans : g.captionHant}
+              </span>
+            </button>
+          ))
+        }
+      </div>
+      <div class="mt-8 text-center">
+        <a href={`${p}/gallery/`} class="inline-flex items-center gap-1.5 text-sm font-semibold text-emp-gold hover:text-emp-gold-light">
+          {d.home.envLink}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
+    <h2 class="text-center font-serif text-3xl sm:text-4xl font-bold text-emp-ink" data-reveal>{d.home.videoH2}</h2>
+    <div class="mt-12 grid gap-6 sm:grid-cols-2 max-w-3xl mx-auto" data-reveal>
+      <video class="w-full rounded-2xl border border-emp-line bg-black" controls preload="none" playsinline poster="/video/empire-tour-43-poster.jpg" data-reveal-child>
+        <source src="/video/empire-tour-43.mp4" type="video/mp4" />
+      </video>
+      <video class="w-full rounded-2xl border border-emp-line bg-black" controls preload="none" playsinline poster="/video/empire-tour-45-poster.jpg" data-reveal-child>
+        <source src="/video/empire-tour-45.mp4" type="video/mp4" />
+      </video>
+    </div>
+  </section>
+
+  <section class="bg-emp-bg-2 emp-marble border-y border-emp-line">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center" data-reveal>
+      <p class="text-xs font-semibold uppercase tracking-[0.35em] text-emp-gold/80" data-reveal-child>{d.home.priceKicker}</p>
+      <h2 class="mt-3 font-serif text-3xl sm:text-4xl font-bold text-emp-ink" data-reveal-child>{d.home.priceH2}</h2>
+      <p class="mt-4 text-emp-muted" data-reveal-child>{d.home.priceP}</p>
+      <p class="mx-auto mt-4 max-w-xl text-sm text-emp-gold/90" data-reveal-child>{d.home.priceNote}</p>
+      <a href={`${p}/pricing/`} class="mt-7 inline-flex items-center gap-1.5 text-sm font-semibold text-emp-gold hover:text-emp-gold-light transition-colors" data-reveal-child>
+        {d.home.priceLink}
+      </a>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-2 sm:py-4" data-reveal>
+    <TipBox locale={locale} />
+  </section>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16">
+    <div class="text-center" data-reveal>
+      <span class="inline-flex items-center border border-emp-gold/40 bg-emp-gold/10 px-3 py-1 text-[11px] font-semibold tracking-[0.28em] text-emp-gold" data-reveal-child>{d.home.extrasKicker}</span>
+      <h2 class="mt-4 font-serif text-3xl sm:text-4xl font-bold text-emp-ink" data-reveal-child>{d.home.extrasH2}</h2>
+      <p class="mx-auto mt-3 max-w-xl text-sm text-emp-muted" data-reveal-child>{d.home.extrasP}</p>
+    </div>
+    <div class="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-3" data-reveal>
+      {
+        d.extras.map((x) => (
+          <div class="rounded-2xl border border-emp-gold/30 bg-emp-bg-3/50 p-5" data-reveal-child>
+            <h3 class="text-base font-semibold text-emp-gold">{x.t}</h3>
+            <p class="mt-1 text-xs leading-relaxed text-emp-muted">{x.d}</p>
+          </div>
+        ))
+      }
+    </div>
+    <div class="mt-8 text-center" data-reveal>
+      <a href={`${p}/pricing/`} class="inline-flex items-center gap-1.5 text-sm font-semibold text-emp-gold hover:text-emp-gold-light transition-colors">{d.home.extrasLink}</a>
+    </div>
+  </section>
+
+  <section class="bg-emp-bg-2 emp-marble border-y border-emp-line">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24">
+      <div class="text-center" data-reveal>
+        <p class="text-xs font-semibold uppercase tracking-[0.35em] text-emp-gold/80" data-reveal-child>{d.home.newsKicker}</p>
+        <h2 class="mt-3 font-serif text-3xl sm:text-4xl font-bold text-emp-ink" data-reveal-child>{d.home.newsH2}</h2>
+        <div class="emp-rule mx-auto mt-6 max-w-xs" data-reveal-child></div>
+      </div>
+      <div class="mt-12 grid gap-6 sm:grid-cols-3" data-reveal>
+        {
+          homeNews.map((n) => (
+            <a
+              href={`${p}/news/${n.slug}/`}
+              class="group overflow-hidden rounded-2xl border border-emp-line bg-emp-bg-3/60 transition-colors hover:border-emp-gold/40"
+              data-reveal-child
+            >
+              <div class="aspect-[16/9] overflow-hidden">
+                <img src={n.img} alt={n.alt} width="1280" height="720" loading="lazy" decoding="async" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
+              </div>
+              <div class="p-6">
+                <p class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-emp-gold">
+                  <span>{d.news.cats[n.cat]}</span>
+                  <span class="tracking-normal font-normal text-xs text-emp-muted/80">{formatNewsDate(n.date, locale)}</span>
+                </p>
+                <h3 class="mt-2.5 font-serif text-lg font-bold leading-snug text-emp-ink transition-colors group-hover:text-emp-gold">
+                  {locale === "zh-CN" ? n.titleHans : n.titleHant}
+                </h3>
+                <p class="mt-3 line-clamp-2 text-sm leading-relaxed text-emp-muted">
+                  {locale === "zh-CN" ? n.excerptHans : n.excerptHant}
+                </p>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+      <div class="mt-10 text-center" data-reveal>
+        <a href={`${p}/news/`} class="inline-flex items-center gap-1.5 text-sm font-semibold text-emp-gold hover:text-emp-gold-light transition-colors">{d.home.newsAll}</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24 grid gap-10 lg:grid-cols-[1fr_1.15fr] lg:items-center">
+      <div data-reveal>
+        <p class="text-xs font-semibold uppercase tracking-[0.35em] text-emp-gold/80" data-reveal-child>{d.home.locKicker}</p>
+        <h2 class="mt-4 font-serif text-3xl sm:text-4xl font-bold text-emp-ink" data-reveal-child>{d.home.locH2}</h2>
+        <p class="mt-5 text-base leading-relaxed text-emp-muted" data-reveal-child>{d.home.locP}</p>
+        <a href={`${p}/location/`} class="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-emp-gold hover:text-emp-gold-light transition-colors" data-reveal-child>{d.home.locLink}</a>
+      </div>
+      <div class="rounded-3xl border border-emp-gold/30 bg-emp-bg-2 p-1.5 overflow-hidden" data-reveal>
+        <iframe title={d.location.mapTitle} src={MAP_SRC} class="h-[320px] w-full rounded-2xl border-0" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center" data-reveal>
+    <h2 class="font-serif text-3xl sm:text-5xl font-bold emp-grad-text" data-reveal-child>{d.home.ctaH2}</h2>
+    <p class="mx-auto mt-5 max-w-xl text-emp-muted" data-reveal-child>{d.home.ctaP}</p>
+    <div class="mt-9" data-reveal-child>
+      <BookingButtons locale={locale} justify="center" />
+    </div>
+  </section>
+  <Lightbox />
+</Base>

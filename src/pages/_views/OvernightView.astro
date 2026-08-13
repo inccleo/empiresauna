@@ -1,0 +1,46 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHero from "../../components/PageHero.astro";
+import CtaBand from "../../components/CtaBand.astro";
+import { t } from "../../i18n";
+import { prefix, type Locale } from "../../lib/site";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const d = t(locale);
+const p = prefix(locale);
+const priceLabel = locale === "zh-CN" ? "价格与收费" : "價格與收費";
+const guideLabel = locale === "zh-CN" ? "澳门桑拿攻略" : "澳門桑拿攻略";
+---
+
+<Base locale={locale} title={d.overnight.title} description={d.overnight.desc}>
+  <PageHero kicker={d.overnight.kicker} title={d.overnight.h1} sub={d.overnight.sub} image="/images/recliner-lounge.webp" />
+
+  <section class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
+    <p class="text-base leading-relaxed text-emp-muted" data-reveal>{d.overnight.lead}</p>
+    <div class="mt-10 space-y-4" data-reveal>
+      {
+        d.overnight.cards.map((c) => (
+          <div class="rounded-2xl border border-emp-line bg-emp-bg-2/60 p-6" data-reveal-child>
+            <h2 class="font-serif text-xl font-bold text-emp-gold">{c.t}</h2>
+            <p class="mt-2 text-sm leading-relaxed text-emp-muted">{c.d}</p>
+          </div>
+        ))
+      }
+    </div>
+    <p class="mt-10 text-sm leading-relaxed text-emp-muted" data-reveal>
+      {locale === "zh-CN"
+        ? "过夜收费与套票会因房型与时段而异 — 公开价位为 MOP 1,088 – 6,388、免加一服务费。详情可参考 "
+        : "過夜收費與套票會因房型與時段而異 — 公開價位為 MOP 1,088 – 6,388、免加一服務費。詳情可參考 "}
+      <a href={`${p}/pricing/`} class="text-emp-gold underline-offset-2 hover:underline">{priceLabel}</a>
+      {locale === "zh-CN" ? "，或先看 " : "，或先看 "}
+      <a href={`${p}/guide/`} class="text-emp-gold underline-offset-2 hover:underline">{guideLabel}</a>
+      {locale === "zh-CN" ? " 了解完整流程。" : " 了解完整流程。"}
+    </p>
+    <div class="mt-12">
+      <CtaBand locale={locale} title={d.overnight.ctaH2} sub={d.overnight.ctaP} variant="card" ink />
+    </div>
+  </section>
+</Base>

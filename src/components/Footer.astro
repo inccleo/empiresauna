@@ -1,0 +1,77 @@
+---
+import type { Locale } from "../lib/site";
+import { CONTACT, prefix, waLink, tgLink } from "../lib/site";
+import { t } from "../i18n";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const d = t(locale);
+const p = prefix(locale);
+const path = Astro.url.pathname;
+const switchHref =
+  locale === "zh-CN"
+    ? path.replace(/^\/zh-cn/, "") || "/"
+    : path === "/" || path === ""
+      ? "/zh-cn/"
+      : `/zh-cn${path.endsWith("/") ? path : `${path}/`}`;
+---
+
+<footer class="border-t border-emp-line bg-emp-bg-2 emp-marble">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <div class="grid gap-10 md:grid-cols-3">
+      <div>
+        <a href={`${p}/`} class="inline-block" aria-label={d.brand}>
+          <img
+            src="/logo/logo-wordmark.svg"
+            alt={d.brand}
+            width="1716"
+            height="562"
+            class="h-10 w-auto max-w-[200px] object-contain object-left"
+          />
+        </a>
+        <p class="mt-2 text-[11px] tracking-[0.35em] uppercase text-emp-muted">{d.brandMacau}</p>
+        <p class="mt-4 max-w-xs text-sm leading-relaxed text-emp-muted">{d.footerBlurb}</p>
+      </div>
+      <nav aria-label={locale === "zh-CN" ? "页尾导览" : "頁尾導覽"}>
+        <h3 class="text-xs font-semibold uppercase tracking-widest text-emp-gold/80">{d.footerNavTitle}</h3>
+        <ul class="mt-4 grid grid-cols-2 gap-y-2.5 text-sm">
+          {
+            d.footerNav.map((item) => (
+              <li>
+                <a href={`${p}${item.href}`} class="text-emp-ink/70 hover:text-emp-gold transition-colors">
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <div>
+        <h3 class="text-xs font-semibold uppercase tracking-widest text-emp-gold/80">{d.footerBookTitle}</h3>
+        <div class="mt-4 flex flex-col gap-2.5 text-sm">
+          <a href={waLink(locale)} class="text-emp-ink/70 hover:text-emp-gold transition-colors"
+            >WhatsApp · {CONTACT.whatsapp}</a
+          >
+          <a href={tgLink(locale)} class="text-emp-ink/70 hover:text-emp-gold transition-colors"
+            >Telegram · {CONTACT.telegram}</a
+          >
+          <a href={CONTACT.line} class="text-emp-ink/70 hover:text-emp-gold transition-colors">LINE · {d.bookNow}</a>
+          <button type="button" data-wechat-trigger class="text-left text-emp-ink/70 hover:text-emp-gold transition-colors"
+            >WeChat · {CONTACT.wechat}</button
+          >
+        </div>
+      </div>
+    </div>
+    <div class="emp-rule my-9"></div>
+    <p class="mb-4 text-center text-xs text-emp-muted/80 sm:text-left">{d.footerDisclaimer}</p>
+    <div class="flex flex-col items-center justify-between gap-3 text-xs text-emp-muted sm:flex-row">
+      <p>{d.footerCopy}</p>
+      <p class="max-w-md text-center sm:text-right">{d.footerAdult}</p>
+    </div>
+  </div>
+  <div style="text-align:center;padding:14px 0 4px;font-size:12px;letter-spacing:.08em">
+    <a href={switchHref} style="color:inherit;opacity:.65;text-decoration:underline" data-lang-switch>{d.switchFooter}</a>
+  </div>
+</footer>

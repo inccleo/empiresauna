@@ -1,0 +1,162 @@
+---
+import Base from "../../layouts/Base.astro";
+import { t } from "../../i18n";
+import { prefix, type Locale } from "../../lib/site";
+import { NEWS, formatNewsDate } from "../../content/news";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const d = t(locale);
+const p = prefix(locale);
+const counts = {
+  all: NEWS.length,
+  perk: NEWS.filter((n) => n.cat === "perk").length,
+  tip: NEWS.filter((n) => n.cat === "tip").length,
+  update: NEWS.filter((n) => n.cat === "update").length,
+};
+---
+
+<Base locale={locale} title={d.news.title} description={d.news.desc}>
+  <section class="pt-28 sm:pt-36 pb-10 text-center px-4 sm:px-6 lg:px-8">
+    <p class="text-xs font-semibold uppercase tracking-[0.35em] text-emp-gold/80">{d.news.kicker}</p>
+    <h1 class="mt-4 font-serif text-4xl sm:text-5xl font-bold text-emp-ink">{d.news.h1}</h1>
+    <p class="mx-auto mt-5 max-w-xl text-base leading-relaxed text-emp-muted">{d.news.sub}</p>
+    <div class="emp-rule mx-auto mt-8 max-w-xs"></div>
+  </section>
+
+  <section class="bg-emp-bg-2 emp-marble border-y border-emp-line">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-14 sm:pb-16">
+      <div data-filter-sentinel class="h-px"></div>
+      <div class="news-filterbar sticky top-16 sm:top-20 z-30 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3">
+        <div class="flex items-center gap-3">
+          <div class="news-chip-row flex min-w-0 flex-1 items-center gap-2 overflow-x-auto whitespace-nowrap" role="group" aria-label={locale === "zh-CN" ? "按分类筛选" : "按分類篩選"}>
+            <button type="button" data-filter-cat="all" aria-pressed="true" class="news-chip shrink-0 rounded-full border px-4 py-1.5 text-[13px] font-semibold transition-colors">
+              {d.news.all} <span class="opacity-70">{counts.all}</span>
+            </button>
+            <button type="button" data-filter-cat="perk" aria-pressed="false" class="news-chip shrink-0 rounded-full border px-4 py-1.5 text-[13px] font-semibold transition-colors">
+              {d.news.perk} <span class="opacity-70">{counts.perk}</span>
+            </button>
+            <button type="button" data-filter-cat="tips" aria-pressed="false" class="news-chip shrink-0 rounded-full border px-4 py-1.5 text-[13px] font-semibold transition-colors">
+              {d.news.tip} <span class="opacity-70">{counts.tip}</span>
+            </button>
+            <button type="button" data-filter-cat="update" aria-pressed="false" class="news-chip shrink-0 rounded-full border px-4 py-1.5 text-[13px] font-semibold transition-colors">
+              {d.news.update} <span class="opacity-70">{counts.update}</span>
+            </button>
+          </div>
+          <button
+            type="button"
+            data-sort-toggle
+            data-sort="new"
+            title={`${d.news.sortNew} — ${locale === "zh-CN" ? "点一下切换" : "按一下切換"}`}
+            class="news-sort inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-emp-line text-emp-muted transition-colors hover:border-emp-gold/50 hover:text-emp-gold"
+            aria-label={`${locale === "zh-CN" ? "排序" : "排序"}：${d.news.sortNew}，${locale === "zh-CN" ? "点一下切换" : "按一下切換"}`}
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+              ><path d="M7 4v16M7 20l-3-3M7 20l3-3M17 20V4M17 4l-3 3M17 4l3 3"></path></svg
+            >
+          </button>
+        </div>
+      </div>
+
+      <div id="news-list" class="mt-6 space-y-6">
+        {
+          NEWS.map((n) => (
+            <a
+              href={`${p}/news/${n.slug}/`}
+              data-news-item
+              data-cat={n.cat === "tip" ? "tips" : n.cat}
+              data-ts={String(n.ts)}
+              class="group grid gap-0 overflow-hidden rounded-2xl border border-emp-line bg-emp-bg-3/60 transition-colors hover:border-emp-gold/40 sm:grid-cols-[240px_minmax(0,1fr)]"
+            >
+              <div class="aspect-[16/9] overflow-hidden sm:aspect-auto sm:h-full">
+                <img
+                  src={n.img}
+                  alt={n.alt}
+                  width="640"
+                  height="360"
+                  loading="lazy"
+                  decoding="async"
+                  class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                />
+              </div>
+              <div class="p-6 sm:p-7">
+                <p class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-emp-gold">
+                  <span>{d.news.cats[n.cat]}</span>
+                  <time datetime={n.date} class="tracking-normal font-normal text-emp-muted/80 text-xs">
+                    {formatNewsDate(n.date, locale)}
+                  </time>
+                </p>
+                <h2 class="mt-2.5 font-serif text-xl font-bold leading-snug text-emp-ink transition-colors group-hover:text-emp-gold">
+                  {locale === "zh-CN" ? n.titleHans : n.titleHant}
+                </h2>
+                <p class="mt-3 line-clamp-2 text-sm leading-relaxed text-emp-muted">
+                  {locale === "zh-CN" ? n.excerptHans : n.excerptHant}
+                </p>
+                <p class="mt-4 text-sm text-emp-gold/90">{d.news.read}</p>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+      <p data-empty-note hidden class="mt-10 text-center text-emp-muted">{d.news.empty}</p>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const p = document.getElementById("news-list");
+  const b = Array.from(document.querySelectorAll<HTMLElement>("[data-news-item]"));
+  const a = Array.from(document.querySelectorAll<HTMLElement>("[data-filter-cat]"));
+  const r = document.querySelector<HTMLElement>("[data-sort-toggle]");
+  const f = document.querySelector<HTMLElement>("[data-empty-note]");
+  const hans = document.documentElement.lang === "zh-CN";
+  const labels = { new: hans ? "最新在前" : "最新在前", old: hans ? "最旧在前" : "最舊在前" };
+
+  function apply(cat: string, sort: string) {
+    const items = [...b].sort((e, n) => {
+      const u = Number(e.dataset.ts) - Number(n.dataset.ts);
+      return sort === "new" ? -u : u;
+    });
+    for (const e of items) p?.appendChild(e);
+    let d = 0;
+    for (const e of items) {
+      const n = cat === "all" || e.dataset.cat === cat;
+      e.classList.toggle("hidden", !n);
+      if (n) d++;
+    }
+    if (f) f.hidden = d > 0;
+    for (const e of a) e.setAttribute("aria-pressed", String(e.dataset.filterCat === cat));
+    if (cat === "all") history.replaceState(null, "", location.pathname);
+    else history.replaceState(null, "", `#cat=${cat}`);
+  }
+
+  let o = "all";
+  let s = "new";
+  for (const t of a) {
+    t.addEventListener("click", () => {
+      o = t.dataset.filterCat ?? "all";
+      apply(o, s);
+    });
+  }
+  r?.addEventListener("click", () => {
+    s = s === "new" ? "old" : "new";
+    r.dataset.sort = s;
+    const label = s === "new" ? labels.new : labels.old;
+    const hint = hans ? "点一下切换" : "按一下切換";
+    r.title = `${label} — ${hint}`;
+    r.setAttribute("aria-label", `${hans ? "排序" : "排序"}：${label}，${hint}`);
+    apply(o, s);
+  });
+  const l = location.hash.match(/#cat=(\w+)/);
+  if (l && a.some((t) => t.dataset.filterCat === l[1])) {
+    o = l[1];
+    apply(o, s);
+  }
+  const m = document.querySelector(".news-filterbar");
+  const y = document.querySelector("[data-filter-sentinel]");
+  if (m && y) {
+    new IntersectionObserver(([t]) => m.classList.toggle("is-stuck", !t.isIntersecting)).observe(y);
+  }
+</script>

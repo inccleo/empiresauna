@@ -1,0 +1,83 @@
+---
+import type { Locale } from "../lib/site";
+import BookingButtons from "./BookingButtons.astro";
+
+interface Props {
+  locale: Locale;
+  title: string;
+  sub?: string;
+  variant?: "plain" | "marble" | "card" | "compact";
+  ink?: boolean;
+  large?: boolean;
+  wide?: boolean;
+}
+const { locale, title, sub, variant = "plain", ink = false, large = false, wide = false } = Astro.props;
+const max = wide ? "max-w-4xl" : "max-w-3xl";
+const titleCls = [
+  "font-serif font-bold",
+  large ? "text-3xl sm:text-5xl" : "text-3xl",
+  ink ? "text-emp-ink" : "emp-grad-text",
+].join(" ");
+---
+
+{
+  variant === "card" ? (
+    <section class="rounded-3xl border border-emp-gold/30 bg-emp-bg-2 emp-marble p-8 text-center" data-reveal>
+      <h2 class={titleCls} data-reveal-child>
+        {title}
+      </h2>
+      {sub && (
+        <p class="mt-3 text-emp-muted" data-reveal-child>
+          {sub}
+        </p>
+      )}
+      <div class="mt-7" data-reveal-child>
+        <BookingButtons locale={locale} justify="center" />
+      </div>
+    </section>
+  ) : variant === "marble" ? (
+    <section class="border-t border-emp-line bg-emp-bg-2 emp-marble">
+      <div class={`${max} mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center`} data-reveal>
+        <h2 class={titleCls} data-reveal-child>
+          {title}
+        </h2>
+        {sub && (
+          <p class="mt-4 text-emp-muted" data-reveal-child>
+            {sub}
+          </p>
+        )}
+        <div class="mt-8" data-reveal-child>
+          <BookingButtons locale={locale} justify="center" />
+        </div>
+      </div>
+    </section>
+  ) : variant === "compact" ? (
+    <section class={`${max} mx-auto px-4 sm:px-6 lg:px-8 pb-20 text-center`} data-reveal>
+      <h2 class={titleCls} data-reveal-child>
+        {title}
+      </h2>
+      {sub && (
+        <p class="mt-4 text-emp-muted" data-reveal-child>
+          {sub}
+        </p>
+      )}
+      <div class="mt-7" data-reveal-child>
+        <BookingButtons locale={locale} justify="center" />
+      </div>
+    </section>
+  ) : (
+    <section class={`${max} mx-auto px-4 sm:px-6 lg:px-8 ${large ? "py-24" : "py-20"} text-center`} data-reveal>
+      <h2 class={titleCls} data-reveal-child>
+        {title}
+      </h2>
+      {sub && (
+        <p class:list={["text-emp-muted", large ? "mx-auto mt-5 max-w-xl" : "mt-4"]} data-reveal-child>
+          {sub}
+        </p>
+      )}
+      <div class={large ? "mt-9" : "mt-8"} data-reveal-child>
+        <BookingButtons locale={locale} justify="center" />
+      </div>
+    </section>
+  )
+}

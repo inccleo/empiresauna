@@ -1,0 +1,64 @@
+---
+import type { Locale } from "../lib/site";
+import { CONTACT } from "../lib/site";
+import { t } from "../i18n";
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const d = t(locale);
+---
+
+<div class="emp-wc" data-emp-wc hidden role="dialog" aria-modal="true" aria-labelledby="emp-wc-title">
+  <button class="emp-wc-scrim" data-emp-wc-close type="button" aria-label={d.close}></button>
+  <div class="emp-wc-card">
+    <button class="emp-wc-x" data-emp-wc-close type="button" aria-label={d.close}>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        ><path d="M6 6l12 12M6 18 18 6"></path></svg
+      >
+    </button>
+    <h3 class="emp-wc-title" id="emp-wc-title">{d.wechatTitle}</h3>
+    <div class="emp-wc-qr">
+      <img src="/wechat-qr.png" alt={`WeChat QR · ${CONTACT.wechat}`} loading="lazy" />
+    </div>
+    <p class="emp-wc-hint">
+      {d.wechatHint1}<br />
+      {d.wechatHint2}
+    </p>
+    <button type="button" class="emp-wc-copy" data-emp-wc-copy data-copy-value={CONTACT.wechat}>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        ><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+        ></path></svg
+      >
+      <span data-emp-wc-label>{d.wechatCopy}</span>
+    </button>
+  </div>
+</div>
+
+<script>
+  const modal = document.querySelector<HTMLElement>("[data-emp-wc]");
+  const label = document.querySelector("[data-emp-wc-label]");
+  const copied = label?.textContent?.includes("复制") ? "已复制" : "已複製";
+  const original = label?.textContent ?? "";
+
+  const open = () => modal?.removeAttribute("hidden");
+  const close = () => modal?.setAttribute("hidden", "");
+
+  document.addEventListener("click", (e) => {
+    const t = e.target as HTMLElement;
+    if (t.closest("[data-wechat-trigger]")) open();
+    if (t.closest("[data-emp-wc-close]")) close();
+  });
+  document.addEventListener("open-wechat-modal", () => open());
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") close();
+  });
+  document.querySelector("[data-emp-wc-copy]")?.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText("AN99348");
+      if (label) label.textContent = copied;
+    } catch {
+      /* ignore */
+    }
+  });
+</script>

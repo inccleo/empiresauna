@@ -1,0 +1,138 @@
+---
+import Base from "../../layouts/Base.astro";
+import BookingButtons from "../../components/BookingButtons.astro";
+import { t } from "../../i18n";
+import { prefix, type Locale } from "../../lib/site";
+import { NEWS, formatNewsDate, type NewsPost } from "../../content/news";
+
+function inline(text: string, base: string) {
+  const esc = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  return esc
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/\[(.+?)\]\((\/[^)]+)\)/g, (_m, label: string, href: string) => `<a href="${base}${href}">${label}</a>`);
+}
+
+interface Props {
+  locale: Locale;
+  post: NewsPost;
+}
+const { locale, post } = Astro.props;
+const d = t(locale);
+const p = prefix(locale);
+const title = locale === "zh-CN" ? post.titleHans : post.titleHant;
+const excerpt = locale === "zh-CN" ? post.excerptHans : post.excerptHant;
+const body = locale === "zh-CN" ? post.bodyHans : post.bodyHant;
+const others = NEWS.filter((n) => n.slug !== post.slug).slice(0, 3);
+
+type Block =
+  | { type: "h2"; text: string }
+  | { type: "p"; text: string }
+  | { type: "ul"; items: string[] }
+  | { type: "ol"; items: string[] };
+
+const blocks: Block[] = [];
+let list: { kind: "ul" | "ol"; items: string[] } | null = null;
+const flush = () => {
+  if (list) {
+    blocks.push({ type: list.kind, items: list.items });
+    list = null;
+  }
+};
+for (const line of body) {
+  if (line.startsWith("## ")) {
+    flush();
+    blocks.push({ type: "h2", text: line.slice(3) });
+  } else if (line.startsWith("- ")) {
+    if (!list || list.kind !== "ul") {
+      flush();
+      list = { kind: "ul", items: [] };
+    }
+    list.items.push(line.slice(2));
+  } else if (/^\d+\.\s/.test(line)) {
+    if (!list || list.kind !== "ol") {
+      flush();
+      list = { kind: "ol", items: [] };
+    }
+    list.items.push(line.replace(/^\d+\.\s/, ""));
+  } else {
+    flush();
+    blocks.push({ type: "p", text: line });
+  }
+}
+flush();
+---
+
+<Base locale={locale} title={`${title}｜巨亨桑拿 Empire Sauna`} description={excerpt}>
+  <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 pb-20">
+    <a href={`${p}/news/`} class="inline-flex items-center gap-1.5 text-sm text-emp-muted transition-colors hover:text-emp-gold">
+      <span aria-hidden="true">←</span>
+      {locale === "zh-CN" ? "返回最新消息" : "返回最新消息"}
+    </a>
+    <header class="mt-8">
+      <p class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-semibold uppercase tracking-[0.35em] text-emp-gold">
+        <span>{d.news.cats[post.cat]}</span>
+        <time datetime={post.date} class="tracking-normal font-normal text-[13px] text-emp-muted/80">
+          {formatNewsDate(post.date, locale)}
+        </time>
+      </p>
+      <h1 class="mt-4 font-serif text-3xl sm:text-4xl font-bold leading-snug text-emp-ink">{title}</h1>
+      <p class="mt-4 max-w-2xl text-[15px] leading-relaxed text-emp-muted">{excerpt}</p>
+      <div class="emp-rule mt-7"></div>
+    </header>
+    <div class="mt-8 overflow-hidden rounded-2xl border border-emp-line">
+      <img src={post.img} alt={post.alt} width="1280" height="720" class="aspect-[16/9] w-full object-cover" />
+    </div>
+
+    <div class="emp-prose mt-10">
+      {
+        blocks.map((b) =>
+          b.type === "h2" ? (
+            <h2 id={b.text.replace(/[？?]/g, "").replace(/\s+/g, "-").toLowerCase()}>{b.text}</h2>
+          ) : b.type === "p" ? (
+            <p set:html={inline(b.text, p)} />
+          ) : b.type === "ul" ? (
+            <ul>
+              {b.items.map((item) => (
+                <li set:html={inline(item, p)} />
+              ))}
+            </ul>
+          ) : (
+            <ol>
+              {b.items.map((item) => (
+                <li set:html={inline(item, p)} />
+              ))}
+            </ol>
+          ),
+        )
+      }
+    </div>
+
+    <div class="mt-12 rounded-2xl border border-emp-gold/30 bg-emp-bg-2 emp-marble p-7 sm:p-9 text-center">
+      <p class="text-xs font-semibold uppercase tracking-[0.35em] text-emp-gold/80">{d.newsCtaKicker}</p>
+      <h2 class="mt-3 font-serif text-2xl sm:text-3xl font-bold text-emp-ink">{d.newsCtaH2}</h2>
+      <p class="mx-auto mt-3 max-w-md text-sm leading-relaxed text-emp-muted">{d.newsCtaP}</p>
+      <div class="mt-7">
+        <BookingButtons locale={locale} justify="center" />
+      </div>
+    </div>
+
+    <div class="mt-12 border-t border-emp-line pt-8">
+      <p class="mb-4 text-[11px] font-semibold uppercase tracking-[0.3em] text-emp-gold/80">{d.news.more}</p>
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {
+          others.slice(0, 2).map((n) => (
+            <a
+              href={`${p}/news/${n.slug}/`}
+              class="block rounded-xl border border-emp-line bg-emp-bg-3/60 p-5 transition-colors hover:border-emp-gold/40"
+            >
+              <span class="text-[10px] font-semibold uppercase tracking-[0.25em] text-emp-gold">{d.news.cats[n.cat]}</span>
+              <p class="mt-1.5 line-clamp-2 text-sm font-semibold text-emp-ink">
+                {locale === "zh-CN" ? n.titleHans : n.titleHant}
+              </p>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </article>
+</Base>

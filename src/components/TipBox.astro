@@ -1,0 +1,28 @@
+---
+import type { Locale } from "../lib/site";
+import { t } from "../i18n";
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const d = t(locale);
+---
+
+<aside class="rounded-2xl border border-emp-gold/30 bg-emp-bg-3/50 p-6 sm:p-7 text-left" role="note">
+  <div class="flex items-start gap-4">
+    <span
+      class="shrink-0 inline-flex items-center border border-emp-gold/40 bg-emp-gold/10 px-3 py-1 text-[11px] font-semibold tracking-[0.28em] text-emp-gold"
+      >{d.tip.kicker}</span
+    >
+    <div class="text-sm leading-relaxed text-emp-ink/90 space-y-2">
+      <p>
+        {d.tip.p1a}<strong class="text-emp-gold">{d.tip.p1b}</strong>{d.tip.p1c}<strong class="text-emp-gold"
+          >{d.tip.p1d}</strong
+        >{d.tip.p1e}
+      </p>
+      <p>
+        {d.tip.p2a}<strong class="text-emp-gold">{d.tip.p2b}</strong>{d.tip.p2c}
+      </p>
+    </div>
+  </div>
+</aside>

@@ -1,0 +1,114 @@
+---
+import type { Locale } from "../lib/site";
+import { prefix } from "../lib/site";
+import { t } from "../i18n";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const d = t(locale);
+const p = prefix(locale);
+const path = Astro.url.pathname;
+const switchHref =
+  locale === "zh-CN"
+    ? path.replace(/^\/zh-cn/, "") || "/"
+    : path === "/" || path === ""
+      ? "/zh-cn/"
+      : `/zh-cn${path.endsWith("/") ? path : `${path}/`}`;
+---
+
+<header id="site-header" class="fixed top-0 inset-x-0 z-50 transition-all duration-500 border-b border-transparent">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 sm:h-20">
+      <a href={`${p}/`} class="flex items-center shrink-0 group" aria-label={d.brand}>
+        <img
+          src="/logo/logo-wordmark.svg"
+          alt={d.brand}
+          width="1716"
+          height="562"
+          class="h-8 sm:h-10 w-auto max-w-[min(46vw,220px)] object-contain object-left transition-opacity group-hover:opacity-90"
+        />
+      </a>
+      <nav class="hidden lg:flex items-center gap-7" aria-label={d.navAria}>
+        {
+          d.nav.map((item) => (
+            <a
+              href={`${p}${item.href}`}
+              class:list={[
+                "text-sm tracking-wide transition-colors hover:text-emp-gold",
+                path === `${p}${item.href}` || path === `${p}${item.href}`.replace(/\/$/, "")
+                  ? "text-emp-gold"
+                  : "text-emp-ink/75",
+              ]}
+            >
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+      <div class="flex items-center gap-3">
+        <a
+          href={switchHref}
+          data-lang-header
+          class="inline-flex items-center rounded-lg border border-emp-gold/35 px-2.5 py-1.5 text-xs font-bold tracking-[0.15em] text-emp-gold hover:bg-emp-gold/15 transition-colors"
+          >{d.switchLabel}</a
+        >
+        <a
+          href={`${p}/contact/`}
+          class="hidden sm:inline-flex items-center rounded-full bg-emp-gold px-5 py-2 text-sm font-semibold text-[#0a0a0c] hover:bg-emp-gold-light transition-colors"
+          >{d.bookNow}</a
+        >
+        <button
+          id="nav-toggle"
+          type="button"
+          aria-label={d.menu}
+          aria-expanded="false"
+          class="lg:hidden inline-flex items-center justify-center rounded-lg border border-emp-gold/30 bg-emp-gold/10 p-2 text-emp-gold hover:bg-emp-gold/20 transition-colors"
+        >
+          <svg id="nav-icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+            ><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg
+          >
+          <svg id="nav-icon-close" class="hidden" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+            ><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg
+          >
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="mobile-menu" class="lg:hidden hidden border-t border-emp-line bg-emp-bg/98 backdrop-blur-md">
+    <nav class="px-4 py-4 space-y-1" aria-label={d.mobileAria}>
+      {
+        d.nav.map((item) => (
+          <a
+            href={`${p}${item.href}`}
+            class="block rounded-lg px-3 py-2.5 text-sm tracking-wide transition-colors text-emp-ink/80 hover:text-emp-gold hover:bg-emp-bg-3"
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById("site-header");
+  const toggle = document.getElementById("nav-toggle");
+  const menu = document.getElementById("mobile-menu");
+  const openIcon = document.getElementById("nav-icon-open");
+  const closeIcon = document.getElementById("nav-icon-close");
+
+  const onScroll = () => {
+    header?.classList.toggle("is-scrolled", window.scrollY > 40);
+  };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  toggle?.addEventListener("click", () => {
+    const open = menu?.classList.toggle("hidden") === false;
+    toggle.setAttribute("aria-expanded", String(open));
+    openIcon?.classList.toggle("hidden", open);
+    closeIcon?.classList.toggle("hidden", !open);
+  });
+</script>

@@ -1,0 +1,173 @@
+---
+import { CONTACT, type Locale } from "../lib/site";
+import { t } from "../i18n";
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const d = t(locale);
+const prefix = locale === "zh-CN" ? "你好巨亨，我想预约：" : "你好巨亨，我想預約：";
+---
+
+<div
+  class="mx-auto max-w-2xl rounded-3xl border border-emp-gold/30 bg-emp-bg-2 emp-marble p-7 sm:p-10"
+  data-qm
+  data-prefix={prefix}
+  data-wa={CONTACT.whatsapp.replace("+", "")}
+  data-line={CONTACT.line}
+>
+  <div class="flex items-center justify-center gap-2" data-qm-dots>
+    <span class="h-1.5 w-7 rounded-full bg-emp-gold" data-qm-dot="0"></span>
+    <span class="h-1.5 w-4 rounded-full bg-emp-line" data-qm-dot="1"></span>
+    <span class="h-1.5 w-4 rounded-full bg-emp-line" data-qm-dot="2"></span>
+  </div>
+
+  <div data-qm-step="0">
+    <div class="mt-6 text-center">
+      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-emp-gold/70">{d.qm.live} · 1/3</p>
+      <h3 class="mt-2 font-serif text-2xl font-bold text-emp-ink">{d.qm.q1}</h3>
+      <div class="mt-7 grid gap-3 grid-cols-2 sm:grid-cols-4">
+        {
+          d.qm.interests.map((opt) => (
+            <button
+              type="button"
+              data-qm-pick
+              data-step="0"
+              data-key={opt.key}
+              data-label={opt.label}
+              class="rounded-2xl border px-4 py-4 text-center transition-colors border-emp-line bg-emp-bg-3/50 text-emp-ink hover:border-emp-gold/50"
+            >
+              <span class="block font-semibold">{opt.label}</span>
+            </button>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <div data-qm-step="1" hidden>
+    <div class="mt-6 text-center">
+      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-emp-gold/70">{d.qm.live} · 2/3</p>
+      <h3 class="mt-2 font-serif text-2xl font-bold text-emp-ink">{d.qm.q2}</h3>
+      <div class="mt-7 grid gap-3 grid-cols-2 sm:grid-cols-4">
+        {
+          d.qm.people.map((opt) => (
+            <button
+              type="button"
+              data-qm-pick
+              data-step="1"
+              data-key={opt.key}
+              data-label={opt.label}
+              class="rounded-2xl border px-4 py-4 text-center transition-colors border-emp-line bg-emp-bg-3/50 text-emp-ink hover:border-emp-gold/50"
+            >
+              <span class="block font-semibold">{opt.label}</span>
+            </button>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <div data-qm-step="2" hidden>
+    <div class="mt-6 text-center">
+      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-emp-gold/70">{d.qm.live} · 3/3</p>
+      <h3 class="mt-2 font-serif text-2xl font-bold text-emp-ink">{d.qm.q3}</h3>
+      <div class="mt-7 grid gap-3 grid-cols-2 sm:grid-cols-5">
+        {
+          d.qm.times.map((opt) => (
+            <button
+              type="button"
+              data-qm-pick
+              data-step="2"
+              data-key={opt.key}
+              data-label={opt.label}
+              class="rounded-2xl border px-4 py-4 text-center transition-colors border-emp-line bg-emp-bg-3/50 text-emp-ink hover:border-emp-gold/50"
+            >
+              <span class="block font-semibold">{opt.label}</span>
+            </button>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <div data-qm-step="3" hidden>
+    <div class="mt-6 text-center">
+      <p class="text-xs font-semibold uppercase tracking-[0.3em] text-emp-gold/70">{d.qm.live}</p>
+      <h3 class="mt-2 font-serif text-2xl font-bold text-emp-ink">{d.qm.done}</h3>
+      <p class="mt-3 text-sm text-emp-gold" data-qm-summary></p>
+      <p class="mt-2 text-sm text-emp-muted">{d.qm.doneP}</p>
+      <div class="mt-7 flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center justify-center gap-3">
+        <a
+          data-qm-wa
+          href="#"
+          class="inline-flex items-center justify-center rounded-full px-5 py-3.5 font-semibold bg-emp-wa-green text-white hover:bg-emp-wa-green-dark"
+          >{d.wa}</a
+        >
+        <a
+          data-qm-tg
+          href="#"
+          class="inline-flex items-center justify-center rounded-full px-5 py-3.5 font-semibold border border-emp-gold/40 bg-emp-bg-3 text-emp-ink hover:border-emp-gold hover:text-emp-gold"
+          >{d.tg}</a
+        >
+        <a
+          href={CONTACT.line}
+          class="inline-flex items-center justify-center rounded-full px-5 py-3.5 font-semibold border border-emp-gold/40 bg-emp-bg-3 text-emp-ink hover:border-emp-gold hover:text-emp-gold"
+          >{d.line}</a
+        >
+      </div>
+      <button type="button" data-qm-reset class="mt-5 text-sm text-emp-muted hover:text-emp-gold">{d.qm.reset}</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-qm]").forEach((root) => {
+    const labels: string[] = ["", "", ""];
+    const prefix = root.dataset.prefix || "";
+    const waNum = root.dataset.wa || "";
+
+    const show = (step: number) => {
+      root.querySelectorAll<HTMLElement>("[data-qm-step]").forEach((el) => {
+        el.hidden = Number(el.dataset.qmStep) !== step;
+      });
+      root.querySelectorAll<HTMLElement>("[data-qm-dot]").forEach((dot) => {
+        const i = Number(dot.dataset.qmDot);
+        const on = i <= Math.min(step, 2);
+        dot.classList.toggle("w-7", on);
+        dot.classList.toggle("w-4", !on);
+        dot.classList.toggle("bg-emp-gold", on);
+        dot.classList.toggle("bg-emp-line", !on);
+      });
+    };
+
+    const applyLinks = () => {
+      const summary = labels.filter(Boolean).join(" / ");
+      const msg = encodeURIComponent(`${prefix}${summary}`);
+      const wa = root.querySelector<HTMLAnchorElement>("[data-qm-wa]");
+      const tg = root.querySelector<HTMLAnchorElement>("[data-qm-tg]");
+      const sum = root.querySelector("[data-qm-summary]");
+      if (sum) sum.textContent = summary;
+      if (wa) wa.href = `https://wa.me/${waNum}?text=${msg}`;
+      if (tg) tg.href = `https://t.me/Aomensauna?text=${msg}`;
+    };
+
+    root.addEventListener("click", (e) => {
+      const t = (e.target as HTMLElement).closest<HTMLElement>("[data-qm-pick]");
+      if (t) {
+        const step = Number(t.dataset.step);
+        labels[step] = t.dataset.label || "";
+        if (step < 2) show(step + 1);
+        else {
+          applyLinks();
+          show(3);
+        }
+      }
+      if ((e.target as HTMLElement).closest("[data-qm-reset]")) {
+        labels[0] = labels[1] = labels[2] = "";
+        show(0);
+      }
+    });
+  });
+</script>
