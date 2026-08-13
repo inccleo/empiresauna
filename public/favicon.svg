@@ -1,18 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#e6c878"/>
-      <stop offset="0.5" stop-color="#c8a24a"/>
-      <stop offset="1" stop-color="#9c7c32"/>
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="14" fill="#0a0a0c"/>
-  <rect x="2.5" y="2.5" width="59" height="59" rx="12" fill="none" stroke="url(#g)" stroke-width="1.5" opacity="0.7"/>
-  <!-- Empire skyline emblem: three ascending gold towers on a gold baseline -->
-  <g fill="url(#g)">
-    <rect x="16" y="34" width="8" height="14" rx="1.5"/>
-    <rect x="28" y="24" width="8" height="24" rx="1.5"/>
-    <rect x="40" y="30" width="8" height="18" rx="1.5"/>
-    <rect x="14" y="50" width="36" height="3" rx="1.5"/>
-  </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#0a0a0c"/><text x="32" y="42" text-anchor="middle" font-family="serif" font-size="28" fill="#c8a24a">巨</text></svg>
