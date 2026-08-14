@@ -15,7 +15,7 @@ const prefix = locale === "zh-CN" ? "你好巨亨，我想预约：" : "你好�
   data-qm
   data-prefix={prefix}
   data-wa={CONTACT.whatsapp.replace(/[^0-9]/g, "")}
-  data-tg={CONTACT.telegram.trim()}
+  data-tg-url={CONTACT.telegramUrl}
   data-line={CONTACT.line}
 >
   <div class="flex items-center justify-center gap-2" data-qm-dots>
@@ -128,7 +128,7 @@ const prefix = locale === "zh-CN" ? "你好巨亨，我想预约：" : "你好�
     const labels: string[] = ["", "", ""];
     const prefix = root.dataset.prefix || "";
     const waNum = root.dataset.wa || "";
-    const tgRaw = root.dataset.tg || "";
+    const tgUrl = root.dataset.tgUrl || "";
 
     const show = (step: number) => {
       root.querySelectorAll<HTMLElement>("[data-qm-step]").forEach((el) => {
@@ -152,13 +152,9 @@ const prefix = locale === "zh-CN" ? "你好巨亨，我想预约：" : "你好�
       const sum = root.querySelector("[data-qm-summary]");
       if (sum) sum.textContent = summary;
       if (wa) wa.href = `https://wa.me/${waNum}?text=${msg}`;
-      if (tg) {
-        if (tgRaw.startsWith("@")) {
-          tg.href = `https://t.me/${tgRaw.slice(1)}?text=${msg}`;
-        } else {
-          const phone = tgRaw.replace(/[^0-9]/g, "");
-          tg.href = `tg://resolve?phone=${phone}`;
-        }
+      if (tg && tgUrl) {
+        const sep = tgUrl.includes("?") ? "&" : "?";
+        tg.href = `${tgUrl.replace(/\/$/, "")}${sep}text=${msg}`;
       }
     };
 

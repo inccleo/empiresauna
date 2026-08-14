@@ -1,8 +1,10 @@
 export const CONTACT = {
   /** Display + wa.me digits (spaces optional). */
   whatsapp: "+853 6208 1126",
-  /** @username or phone with country code. */
+  /** Display label for Telegram. */
   telegram: "+853 6208 1126",
+  /** Direct open link (t.me). */
+  telegramUrl: "https://t.me/+85362081126",
   /** Full LINE add-friend URL (ID: empire_sauna02). */
   line: "https://line.me/ti/p/~empire_sauna02",
   /** LINE ID shown on contact page. */
@@ -23,17 +25,13 @@ export function waLink(locale: "zh-Hant" | "zh-CN", prefill?: string) {
   return `https://wa.me/${phoneDigits(CONTACT.whatsapp)}?text=${encodeURIComponent(text)}`;
 }
 
-/** Telegram: @username → t.me; phone → tg://resolve (opens app). */
+/** Telegram open link (prefills message when supported). */
 export function tgLink(locale: "zh-Hant" | "zh-CN", prefill?: string) {
   const text = prefill ?? (locale === "zh-CN" ? CONTACT.waTextHans : CONTACT.waText);
-  const tg = CONTACT.telegram.trim();
-  const q = text ? `?text=${encodeURIComponent(text)}` : "";
-  if (tg.startsWith("@")) {
-    return `https://t.me/${tg.slice(1)}${q}`;
-  }
-  const phone = phoneDigits(tg);
-  // Phone chats open most reliably via the Telegram app deep link.
-  return `tg://resolve?phone=${phone}`;
+  const base = CONTACT.telegramUrl.replace(/\/$/, "");
+  if (!text) return base;
+  const sep = base.includes("?") ? "&" : "?";
+  return `${base}${sep}text=${encodeURIComponent(text)}`;
 }
 
 export type Locale = "zh-Hant" | "zh-CN";

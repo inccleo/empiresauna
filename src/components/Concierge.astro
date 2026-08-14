@@ -14,6 +14,7 @@ const payload = {
   contact: {
     wa: CONTACT.whatsapp,
     tg: CONTACT.telegram,
+    tgUrl: CONTACT.telegramUrl,
     line: CONTACT.line,
   },
   copy: {
@@ -91,7 +92,7 @@ const gem = `<svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true" 
     interests: Opt[];
     people: Opt[];
     times: Opt[];
-    contact: { wa: string; tg: string; line: string };
+    contact: { wa: string; tg: string; tgUrl: string; line: string };
     copy: Record<string, string>;
   };
 
@@ -177,11 +178,11 @@ const gem = `<svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true" 
       const want = interest?.key === "info" ? c.moreInfo : (interest?.label ?? "");
       const when = time?.key === "other" ? c.otherConfirm : (time?.label ?? "");
       const num = data.contact.wa.replace(/[^0-9]/g, "");
-      const tgRaw = data.contact.tg.trim();
-      const tgHref = tgRaw.startsWith("@")
-        ? `https://t.me/${tgRaw.slice(1)}?text=${encodeURIComponent(waText())}`
-        : `tg://resolve?phone=${tgRaw.replace(/[^0-9]/g, "")}`;
       const msg = encodeURIComponent(waText());
+      const tgBase = (data.contact.tgUrl || "").replace(/\/$/, "");
+      const tgHref = tgBase
+        ? `${tgBase}${tgBase.includes("?") ? "&" : "?"}text=${msg}`
+        : `tg://resolve?phone=${data.contact.tg.replace(/[^0-9]/g, "")}`;
       const el = document.createElement("div");
       el.className = "emp-cg-reco";
       el.innerHTML = `<div class="emp-cg-reco-pad">
