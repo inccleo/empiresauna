@@ -20,6 +20,8 @@ export const ko: typeof hant = {
   brand: "거헝 사우나",
   brandEn: "Empire Sauna",
   brandMacau: "Empire Sauna · Macau",
+  keywords:
+    "마카오 사우나, Empire Sauna, 거헝 사우나, Macau Sauna, Macao Sauna, 澳門桑拿, 澳門巨亨桑拿, 澳門桑拿推薦, 澳门水疗, マカオサウナ, macao, rua de xangai",
   navAria: "메인 메뉴",
   mobileAria: "모바일 메뉴",
   menu: "메뉴",
@@ -95,8 +97,8 @@ export const ko: typeof hant = {
   conciergeWaSuffix: ", 추천 있으신가요?",
   conciergeMoreInfo: "더 알아보기",
   home: {
-    title: "거헝 사우나 Empire Sauna｜마카오 사우나 · 마카오 거헝",
-    desc: "거헝 사우나(Empire Sauna) — 2026년 신규 오픈 마카오 사우나 스파. 호텔급 테마 스위트, 시그니처 워터베드 특실, 대리석 욕조와 버틀러 서비스. 대만·일본 스타급 테라피스트. 24시간 영업, 즉시 예약.",
+    title: "거헝 사우나 Empire Sauna｜마카오 사우나 · Macau Sauna",
+    desc: "거헝 사우나(Empire Sauna) — 마카오 사우나 / Macau Sauna / Macao Sauna. 상하이 거리(Rua de Xangai) 2026년 신규 오픈 럭셔리 스파. 호텔급 테마 스위트, 워터베드 특실, 대리석 욕조. 24시간 영업, 즉시 예약.",
     kicker: "Empire Sauna · 마카오 반도",
     h1: "거헝 사우나",
     sub: "마카오 최신 럭셔리 테마 사우나",

@@ -22,21 +22,18 @@ const env = GALLERY.slice(0, 6);
   <section class="relative flex flex-col min-h-[92vh] overflow-hidden">
     <div class="absolute inset-0">
       <img
-        src="/images/cover-bath-pools.webp"
+        src="/images/home-cover.webp"
         alt={d.bathAlt}
         class="emp-ken h-full w-full object-cover"
-        width="1024"
-        height="1024"
+        width="1800"
+        height="1200"
       />
       <div class="absolute inset-0 bg-gradient-to-b from-emp-bg/80 via-emp-bg/55 to-emp-bg"></div>
       <div class="absolute inset-0 bg-gradient-to-r from-emp-bg/85 via-transparent to-transparent"></div>
     </div>
     <div class="relative flex-1 flex items-center justify-center w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-12 sm:pb-16">
       <div class="max-w-2xl w-full text-center is-in" data-reveal>
-        <p class="text-xs font-semibold uppercase tracking-[0.4em] text-emp-gold" data-reveal-child style="--reveal-i: 0;">
-          {d.home.kicker}
-        </p>
-        <h1 class="mt-6 sm:mt-8 flex justify-center" data-reveal-child style="--reveal-i: 1;">
+        <h1 class="flex justify-center" data-reveal-child style="--reveal-i: 0;">
           <img
             src="/logo/logo-emblem.webp"
             alt={d.home.h1}
@@ -45,7 +42,10 @@ const env = GALLERY.slice(0, 6);
             class="w-full max-w-[300px] sm:max-w-[400px] md:max-w-[480px] h-auto object-contain drop-shadow-[0_12px_40px_rgba(0,0,0,0.5)]"
           />
         </h1>
-        <p class="mt-6 sm:mt-8 text-xl sm:text-2xl font-medium text-emp-ink" data-reveal-child style="--reveal-i: 2;">{d.home.sub}</p>
+        <p class="mt-5 sm:mt-6 text-xs font-semibold uppercase tracking-[0.4em] text-emp-gold" data-reveal-child style="--reveal-i: 1;">
+          {d.home.kicker}
+        </p>
+        <p class="mt-5 sm:mt-6 text-xl sm:text-2xl font-medium text-emp-ink" data-reveal-child style="--reveal-i: 2;">{d.home.sub}</p>
         <p class="mt-5 mx-auto max-w-xl text-base sm:text-lg leading-relaxed text-emp-muted" data-reveal-child style="--reveal-i: 3;">
           {d.home.lead}
         </p>

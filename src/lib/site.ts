@@ -22,6 +22,33 @@ export const CONTACT = {
 
 export type Locale = "zh-Hant" | "zh-CN" | "en" | "ja" | "ko";
 
+/** Site-wide SEO keywords (meta keywords + JSON-LD alternate names). */
+export const SEO_KEYWORDS = [
+  "澳門巨亨桑拿",
+  "澳門桑拿",
+  "マカオサウナ",
+  "마카오 사우나",
+  "Macau Sauna",
+  "Macao Sauna",
+  "澳門桑拿推薦",
+  "澳门水疗",
+  "macao",
+  "rua de xangai",
+  "巨亨桑拿",
+  "Empire Sauna",
+] as const;
+
+export const SEO_KEYWORDS_META = SEO_KEYWORDS.join(", ");
+
+export const VENUE_ADDRESS = {
+  streetHant: "澳門上海街154號及162號",
+  streetHans: "澳门上海街154号及162号",
+  streetPt: "Rua de Xangai n.º 154 e 162, Macau",
+  streetEn: "Rua de Xangai 154 & 162, Macau",
+  locality: "Macau",
+  region: "Macau Peninsula",
+};
+
 export type LocaleMeta = {
   code: Locale;
   /** URL prefix without trailing slash; empty for default (zh-Hant). */

@@ -20,6 +20,8 @@ export const en: typeof hant = {
   brand: "Empire Sauna",
   brandEn: "Empire Sauna",
   brandMacau: "Empire Sauna · Macau",
+  keywords:
+    "Macau Sauna, Macao Sauna, Empire Sauna, 巨亨桑拿, 澳門巨亨桑拿, 澳門桑拿, 澳門桑拿推薦, 澳门水疗, マカオサウナ, 마카오 사우나, macao, rua de xangai",
   navAria: "Main menu",
   mobileAria: "Mobile menu",
   menu: "Menu",
@@ -95,8 +97,8 @@ export const en: typeof hant = {
   conciergeWaSuffix: " — any recommendations?",
   conciergeMoreInfo: "More info",
   home: {
-    title: "Empire Sauna｜Macau Sauna · Empire Sauna Macau",
-    desc: "Empire Sauna — a brand-new 2026 Macau sauna spa on the Macau Peninsula. Hotel-grade theme suites, signature waterbed rooms, marble baths and butler service, led by Taiwan and Japan star therapists. Open 24 hours. Book Macau sauna instantly.",
+    title: "Empire Sauna｜Macau Sauna · Macao Sauna · 巨亨桑拿",
+    desc: "Empire Sauna (巨亨桑拿) — Macau Sauna / Macao Sauna on Rua de Xangai, Macau Peninsula. Brand-new 2026 luxury spa club with hotel-grade theme suites, signature waterbed rooms and marble baths. Open 24 hours. Book Macau Sauna instantly.",
     kicker: "Empire Sauna · Macau Peninsula",
     h1: "Empire Sauna",
     sub: "Macau's new luxury theme sauna club",

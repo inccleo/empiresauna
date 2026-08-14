@@ -20,6 +20,8 @@ export const ja: typeof hant = {
   brand: "巨亨サウナ",
   brandEn: "Empire Sauna",
   brandMacau: "Empire Sauna · Macau",
+  keywords:
+    "マカオサウナ, Empire Sauna, 巨亨サウナ, Macau Sauna, Macao Sauna, 澳門桑拿, 澳門巨亨桑拿, 澳門桑拿推薦, 澳门水疗, 마카오 사우나, macao, rua de xangai",
   navAria: "メインメニュー",
   mobileAria: "モバイルメニュー",
   menu: "メニュー",
@@ -95,8 +97,8 @@ export const ja: typeof hant = {
   conciergeWaSuffix: "、おすすめはありますか？",
   conciergeMoreInfo: "詳細情報",
   home: {
-    title: "巨亨サウナ Empire Sauna｜マカオサウナ・マカオ巨亨",
-    desc: "巨亨サウナ（Empire Sauna）— 2026年新規開業のマカオサウナスパ。ホテル仕様のテーマスイート、看板ウォーターベッド特室、大理石浴場とバトラーサービス。台湾・日本のスター級セラピスト。24時間営業、即時予約。",
+    title: "巨亨サウナ Empire Sauna｜マカオサウナ・Macau Sauna",
+    desc: "巨亨サウナ（Empire Sauna）— マカオサウナ / Macau Sauna / Macao Sauna。上海通り（Rua de Xangai）の2026年新規開業ラグジュアリースパ。ホテル仕様テーマスイート、ウォーターベッド特室、大理石浴場。24時間営業、即時予約。",
     kicker: "Empire Sauna · マカオ半島",
     h1: "巨亨サウナ",
     sub: "マカオ最新のラグジュアリーテーマサウナ",

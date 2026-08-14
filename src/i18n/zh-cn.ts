@@ -20,6 +20,8 @@ export const hans: typeof hant = {
   brand: "巨亨桑拿",
   brandEn: "Empire Sauna",
   brandMacau: "Empire Sauna · Macau",
+  keywords:
+    "澳门巨亨桑拿, 澳门桑拿, 澳门桑拿推荐, 巨亨桑拿, Empire Sauna, Macau Sauna, Macao Sauna, マカオサウナ, 마카오 사우나, 澳门水疗, macao, rua de xangai, 上海街",
   navAria: "主菜单",
   mobileAria: "行动菜单",
   menu: "菜单",
@@ -95,8 +97,8 @@ export const hans: typeof hant = {
   conciergeMoreInfo: "更多资讯",
   conciergeLauncherSub: "即时查询",
   home: {
-    title: "巨亨桑拿 Empire Sauna｜澳门桑拿・澳门巨亨桑拿",
-    desc: "巨亨桑拿（Empire Sauna）— 2026 年全新开业的澳门桑拿水疗会所，澳门半岛奢华新选择。酒店级主题套房、招牌水床特色房、大理石浴池与管家式服务，台湾与日本明星级技师领衔。24 小时营业，澳门桑拿即时预约。",
+    title: "巨亨桑拿 Empire Sauna｜澳门桑拿・澳门巨亨桑拿・澳门桑拿推荐",
+    desc: "巨亨桑拿（Empire Sauna）— 澳门巨亨桑拿，2026 年全新开业的澳门桑拿水疗会所，澳门半岛奢华新选择。酒店级主题套房、招牌水床特色房、大理石浴池与管家式服务。地址：Rua de Xangai（上海街）。24 小时营业，澳门桑拿推荐・即时预约。",
     kicker: "Empire Sauna · 澳门半岛",
     h1: "巨亨桑拿",
     sub: "澳门全新奢华主题桑拿会所",
@@ -217,7 +219,7 @@ export const hans: typeof hant = {
     kicker: "ABOUT",
     h1: "关于巨亨",
     sub: "现代奢华 × 东方禅意 — 澳门半岛最新登场的高端桑拿会所。",
-    p1a: "巨亨桑拿（Empire Sauna，亦有人写作「巨享桑拿」）",
+    p1a: "巨亨桑拿（Empire Sauna）",
     p1b: "于 2026 年在澳门半岛全新开业，是澳门目前最新登场的高端桑拿会所。场馆以 港币 8,000 万 倾力打造，融合现代奢华与东方禅意设计，从大堂到每一间套房都以酒店规格呈现。",
     p2: "场内配备酒店级主题套房、大理石浴池及专业管家式服务，并设有巨亨招牌的水床特色房。由台湾网红与日本明星级技师领衔驻场，致力为每位贵宾带来私密、放松而尊贵的体验。",
     p3: "无论您追求极致的空间美学、招牌水床房型，还是无微不至的管家式服务，巨亨桑拿都将以最新一代的奢华标准迎接您的到来。",
