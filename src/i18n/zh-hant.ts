@@ -338,7 +338,7 @@ export const hant = {
     note: "ℹ️ 本網站為巨亨桑拿之預約代理，並非官方網站，為您提供預約安排與專車接送服務。",
     channels: [
       { k: "WhatsApp", v: "+853 6208 1126" },
-      { k: "Telegram", v: "+853 6208 1126" },
+      { k: "Telegram", v: "@Empsauna" },
       { k: "LINE", v: "empire_sauna02" },
       { k: "WeChat", v: "Empire_Jun" },
     ],

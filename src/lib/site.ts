@@ -2,9 +2,9 @@ export const CONTACT = {
   /** Display + wa.me digits (spaces optional). */
   whatsapp: "+853 6208 1126",
   /** Display label for Telegram. */
-  telegram: "+853 6208 1126",
+  telegram: "@Empsauna",
   /** Direct open link (t.me). */
-  telegramUrl: "https://t.me/+85362081126",
+  telegramUrl: "https://t.me/Empsauna",
   /** Full LINE add-friend URL (ID: empire_sauna02). */
   line: "https://line.me/ti/p/~empire_sauna02",
   /** LINE ID shown on contact page. */

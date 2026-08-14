@@ -340,7 +340,7 @@ export const hans: typeof hant = {
     note: "ℹ️ 本网站为巨亨桑拿之预约代理，并非官方网站，为您提供预约安排与专车接送服务。",
     channels: [
       { k: "WhatsApp", v: "+853 6208 1126" },
-      { k: "Telegram", v: "+853 6208 1126" },
+      { k: "Telegram", v: "@Empsauna" },
       { k: "LINE", v: "empire_sauna02" },
       { k: "WeChat", v: "Empire_Jun" },
     ],
