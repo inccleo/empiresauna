@@ -9,8 +9,8 @@ export const CONTACT = {
   line: "https://line.me/ti/p/~empire_sauna02",
   /** LINE ID shown on contact page. */
   lineId: "empire_sauna02",
-  /** WeChat ID for search / copy. */
-  wechat: "Empire_Sauna02",
+  /** WeChat ID / display name (from 素材/微信二维码.jpg). */
+  wechat: "Empire_Jun",
   waText: "你好巨亨，我想預約，可以幫我安排嗎？",
   waTextHans: "你好巨亨，我想预约，可以帮我安排吗？",
 };

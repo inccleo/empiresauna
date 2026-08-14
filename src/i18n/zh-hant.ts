@@ -49,7 +49,7 @@ export const hant = {
   wechatTitle: "加我們微信",
   wechatHint1: "方式一：用微信掃上方 QR code",
   wechatHint2: "方式二：複製微信號，於微信搜尋",
-  wechatCopy: "複製微信號：Empire_Sauna02",
+  wechatCopy: "複製微信號：Empire_Jun",
   wechatCopied: "已複製",
   close: "關閉",
   conciergeName: "巨亨小管家",
@@ -340,7 +340,7 @@ export const hant = {
       { k: "WhatsApp", v: "+853 6208 1126" },
       { k: "Telegram", v: "+853 6208 1126" },
       { k: "LINE", v: "empire_sauna02" },
-      { k: "WeChat", v: "Empire_Sauna02" },
+      { k: "WeChat", v: "Empire_Jun" },
     ],
   },
   overnight: {

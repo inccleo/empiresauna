@@ -51,7 +51,7 @@ export const hans: typeof hant = {
   wechatTitle: "加我们微信",
   wechatHint1: "方式一：用微信扫上方 QR code",
   wechatHint2: "方式二：复制微信号，于微信搜寻",
-  wechatCopy: "复制微信号：Empire_Sauna02",
+  wechatCopy: "复制微信号：Empire_Jun",
   wechatCopied: "已复制",
   close: "关闭",
   conciergeName: "巨亨小管家",
@@ -342,7 +342,7 @@ export const hans: typeof hant = {
       { k: "WhatsApp", v: "+853 6208 1126" },
       { k: "Telegram", v: "+853 6208 1126" },
       { k: "LINE", v: "empire_sauna02" },
-      { k: "WeChat", v: "Empire_Sauna02" },
+      { k: "WeChat", v: "Empire_Jun" },
     ],
   },
   overnight: {
