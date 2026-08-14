@@ -12,8 +12,6 @@ interface Props {
 const { locale } = Astro.props;
 const d = t(locale);
 const p = prefix(locale);
-const priceLabel = locale === "zh-CN" ? "价格与收费" : "價格與收費";
-const overnightLabel = locale === "zh-CN" ? "澳门桑拿过夜指南" : "澳門桑拿過夜指南";
 ---
 
 <Base locale={locale} title={d.guide.title} description={d.guide.desc}>
@@ -47,14 +45,11 @@ const overnightLabel = locale === "zh-CN" ? "澳门桑拿过夜指南" : "澳門
     <section data-reveal>
       <h2 class="font-serif text-2xl font-bold text-emp-gold" data-reveal-child>{d.guide.feeH2}</h2>
       <p class="mt-4 text-base leading-relaxed text-emp-muted" data-reveal-child>
-        {locale === "zh-CN"
-          ? "巨亨桑拿对外公开价位为 MOP 1,088 – 6,388、免加一服务费。场内另设 8 款「小工」VIP 加值服务（每款约 20 分钟），详情可参考 "
-          : "巨亨桑拿對外公開價位為 MOP 1,088 – 6,388、免加一服務費。場內另設 8 款「小工」VIP 加值服務（每款約 20 分鐘），詳情可參考 "}
-        <a href={`${p}/pricing/`} class="text-emp-gold underline-offset-2 hover:underline">{priceLabel}</a>
-        {locale === "zh-CN"
-          ? "。24 小时营业、可付费过夜，过夜玩法可参考 "
-          : "。24 小時營業、可付費過夜，過夜玩法可參考 "}
-        <a href={`${p}/overnight/`} class="text-emp-gold underline-offset-2 hover:underline">{overnightLabel}</a>。
+        {d.guide.feeP}
+        {" "}
+        <a href={`${p}/pricing/`} class="text-emp-gold underline-offset-2 hover:underline">{d.linkPricing}</a>
+        {" · "}
+        <a href={`${p}/overnight/`} class="text-emp-gold underline-offset-2 hover:underline">{d.linkOvernight}</a>
       </p>
     </section>
 

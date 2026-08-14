@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Noto Sans HK", "Inter", system-ui, sans-serif;
-  --font-serif: "Noto Serif HK", "Playfair Display", Georgia, serif;
+  --font-sans: "Noto Sans HK", "Noto Sans JP", "Noto Sans KR", "Inter", system-ui, sans-serif;
+  --font-serif: "Noto Serif HK", "Noto Sans JP", "Noto Sans KR", "Playfair Display", Georgia, serif;
   --color-emp-bg: #0a0a0c;
   --color-emp-bg-2: #121116;
   --color-emp-bg-3: #1b1920;

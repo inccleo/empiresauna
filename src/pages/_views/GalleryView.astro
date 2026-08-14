@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 import PageHero from "../../components/PageHero.astro";
 import Lightbox from "../../components/Lightbox.astro";
 import { t } from "../../i18n";
-import { GALLERY, type Locale } from "../../lib/site";
+import { GALLERY, galleryCaption, type Locale } from "../../lib/site";
 
 interface Props {
   locale: Locale;
@@ -24,15 +24,15 @@ const d = t(locale);
             class="group relative overflow-hidden rounded-xl border border-emp-line"
             data-reveal-child
             data-lightbox={g.src}
-            data-caption={locale === "zh-CN" ? g.captionHans : g.captionHant}
+            data-caption={galleryCaption(g, locale)}
           >
             <img
               src={g.src}
-              alt={locale === "zh-CN" ? g.captionHans : g.captionHant}
+              alt={galleryCaption(g, locale)}
               class="aspect-square w-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <span class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-emp-bg/90 to-transparent px-4 pb-3 pt-8 text-left text-sm font-medium text-emp-ink">
-              {locale === "zh-CN" ? g.captionHans : g.captionHant}
+              {galleryCaption(g, locale)}
             </span>
           </button>
         ))

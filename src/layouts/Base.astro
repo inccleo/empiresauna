@@ -5,6 +5,7 @@ import Footer from "../components/Footer.astro";
 import WeChatModal from "../components/WeChatModal.astro";
 import Concierge from "../components/Concierge.astro";
 import type { Locale } from "../lib/site";
+import { LOCALES, localizedPath } from "../lib/site";
 import { t } from "../i18n";
 
 interface Props {
@@ -16,10 +17,7 @@ const locale: Locale = Astro.props.locale ?? "zh-Hant";
 const { title, description } = Astro.props;
 const d = t(locale);
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const hantPath = Astro.url.pathname.replace(/^\/zh-cn/, "") || "/";
-const hansPath = hantPath === "/" ? "/zh-cn/" : `/zh-cn${hantPath}`;
-const hantUrl = new URL(hantPath, Astro.site).href;
-const hansUrl = new URL(hansPath, Astro.site).href;
+const path = Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -30,9 +28,12 @@ const hansUrl = new URL(hansPath, Astro.site).href;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical.href} />
-    <link rel="alternate" hreflang="zh-Hant" href={hantUrl} />
-    <link rel="alternate" hreflang="zh-CN" href={hansUrl} />
-    <link rel="alternate" hreflang="x-default" href={hantUrl} />
+    {
+      LOCALES.map((loc) => (
+        <link rel="alternate" hreflang={loc.hreflang} href={new URL(localizedPath(loc.code, path), Astro.site).href} />
+      ))
+    }
+    <link rel="alternate" hreflang="x-default" href={new URL(localizedPath("zh-Hant", path), Astro.site).href} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
@@ -53,7 +54,7 @@ const hansUrl = new URL(hansPath, Astro.site).href;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+HK:wght@400;500;700;900&family=Noto+Serif+HK:wght@500;700;900&family=Playfair+Display:wght@700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+HK:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+HK:wght@500;700;900&family=Playfair+Display:wght@700;800&display=swap"
       rel="stylesheet"
     />
   </head>

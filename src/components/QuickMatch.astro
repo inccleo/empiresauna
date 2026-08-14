@@ -7,7 +7,7 @@ interface Props {
 }
 const { locale } = Astro.props;
 const d = t(locale);
-const prefix = locale === "zh-CN" ? "你好巨亨，我想预约：" : "你好巨亨，我想預約：";
+const prefix = d.qmWaPrefix;
 ---
 
 <div

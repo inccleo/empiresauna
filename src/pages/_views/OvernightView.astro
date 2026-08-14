@@ -11,8 +11,6 @@ interface Props {
 const { locale } = Astro.props;
 const d = t(locale);
 const p = prefix(locale);
-const priceLabel = locale === "zh-CN" ? "价格与收费" : "價格與收費";
-const guideLabel = locale === "zh-CN" ? "澳门桑拿攻略" : "澳門桑拿攻略";
 ---
 
 <Base locale={locale} title={d.overnight.title} description={d.overnight.desc}>
@@ -31,13 +29,11 @@ const guideLabel = locale === "zh-CN" ? "澳门桑拿攻略" : "澳門桑拿攻�
       }
     </div>
     <p class="mt-10 text-sm leading-relaxed text-emp-muted" data-reveal>
-      {locale === "zh-CN"
-        ? "过夜收费与套票会因房型与时段而异 — 公开价位为 MOP 1,088 – 6,388、免加一服务费。详情可参考 "
-        : "過夜收費與套票會因房型與時段而異 — 公開價位為 MOP 1,088 – 6,388、免加一服務費。詳情可參考 "}
-      <a href={`${p}/pricing/`} class="text-emp-gold underline-offset-2 hover:underline">{priceLabel}</a>
-      {locale === "zh-CN" ? "，或先看 " : "，或先看 "}
-      <a href={`${p}/guide/`} class="text-emp-gold underline-offset-2 hover:underline">{guideLabel}</a>
-      {locale === "zh-CN" ? " 了解完整流程。" : " 了解完整流程。"}
+      {d.overnight.note}
+      {" "}
+      <a href={`${p}/pricing/`} class="text-emp-gold underline-offset-2 hover:underline">{d.linkPricing}</a>
+      {" · "}
+      <a href={`${p}/guide/`} class="text-emp-gold underline-offset-2 hover:underline">{d.linkGuide}</a>
     </p>
     <div class="mt-12">
       <CtaBand locale={locale} title={d.overnight.ctaH2} sub={d.overnight.ctaP} variant="card" ink />

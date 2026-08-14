@@ -2,6 +2,7 @@
 import type { Locale } from "../lib/site";
 import { prefix } from "../lib/site";
 import { t } from "../i18n";
+import LangSwitcher from "./LangSwitcher.astro";
 
 interface Props {
   locale: Locale;
@@ -10,12 +11,6 @@ const { locale } = Astro.props;
 const d = t(locale);
 const p = prefix(locale);
 const path = Astro.url.pathname;
-const switchHref =
-  locale === "zh-CN"
-    ? path.replace(/^\/zh-cn/, "") || "/"
-    : path === "/" || path === ""
-      ? "/zh-cn/"
-      : `/zh-cn${path.endsWith("/") ? path : `${path}/`}`;
 ---
 
 <header id="site-header" class="fixed top-0 inset-x-0 z-50 transition-all duration-500 border-b border-transparent">
@@ -27,7 +22,7 @@ const switchHref =
           alt={d.brand}
           width="2000"
           height="680"
-          class="h-9 sm:h-11 w-auto max-w-[min(52vw,240px)] object-contain object-left transition-opacity group-hover:opacity-90"
+          class="h-9 sm:h-11 w-auto max-w-[min(42vw,200px)] sm:max-w-[min(52vw,240px)] object-contain object-left transition-opacity group-hover:opacity-90"
         />
       </a>
       <nav class="hidden lg:flex items-center gap-7" aria-label={d.navAria}>
@@ -47,13 +42,8 @@ const switchHref =
           ))
         }
       </nav>
-      <div class="flex items-center gap-3">
-        <a
-          href={switchHref}
-          data-lang-header
-          class="inline-flex items-center rounded-lg border border-emp-gold/35 px-2.5 py-1.5 text-xs font-bold tracking-[0.15em] text-emp-gold hover:bg-emp-gold/15 transition-colors"
-          >{d.switchLabel}</a
-        >
+      <div class="flex items-center gap-2 sm:gap-3">
+        <LangSwitcher locale={locale} size="sm" />
         <a
           href={`${p}/contact/`}
           class="hidden sm:inline-flex items-center rounded-full bg-emp-gold px-5 py-2 text-sm font-semibold text-[#0a0a0c] hover:bg-emp-gold-light transition-colors"

@@ -32,11 +32,13 @@ const p = prefix(locale);
       }
     </div>
     <p class="mt-10 text-sm leading-relaxed text-emp-muted" data-reveal>
-      {locale === "zh-CN" ? "想了解更多？看看 " : "想了解更多？看看 "}
-      <a href={`${p}/rooms/`} class="text-emp-gold underline-offset-2 hover:underline">{locale === "zh-CN" ? "房型套房" : "房型套房"}</a>、
-      <a href={`${p}/pricing/`} class="text-emp-gold underline-offset-2 hover:underline">{locale === "zh-CN" ? "价格收费" : "價格收費"}</a>
-      {locale === "zh-CN" ? " 或 " : " 或 "}
-      <a href={`${p}/guide/`} class="text-emp-gold underline-offset-2 hover:underline">{locale === "zh-CN" ? "澳门桑拿攻略" : "澳門桑拿攻略"}</a>。
+      {d.why.more}
+      {" "}
+      <a href={`${p}/rooms/`} class="text-emp-gold underline-offset-2 hover:underline">{d.linkRooms}</a>
+      {" · "}
+      <a href={`${p}/pricing/`} class="text-emp-gold underline-offset-2 hover:underline">{d.linkPricing}</a>
+      {" · "}
+      <a href={`${p}/guide/`} class="text-emp-gold underline-offset-2 hover:underline">{d.linkGuide}</a>
     </p>
     <div class="mt-12">
       <CtaBand locale={locale} title={d.why.ctaH2} sub={d.why.ctaP} variant="card" ink />

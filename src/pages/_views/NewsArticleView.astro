@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 import BookingButtons from "../../components/BookingButtons.astro";
 import { t } from "../../i18n";
 import { prefix, type Locale } from "../../lib/site";
-import { NEWS, formatNewsDate, type NewsPost } from "../../content/news";
+import { NEWS, formatNewsDate, newsTitle, newsExcerpt, newsBody, type NewsPost } from "../../content/news";
 
 function inline(text: string, base: string) {
   const esc = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -19,9 +19,9 @@ interface Props {
 const { locale, post } = Astro.props;
 const d = t(locale);
 const p = prefix(locale);
-const title = locale === "zh-CN" ? post.titleHans : post.titleHant;
-const excerpt = locale === "zh-CN" ? post.excerptHans : post.excerptHant;
-const body = locale === "zh-CN" ? post.bodyHans : post.bodyHant;
+const title = newsTitle(post, locale);
+const excerpt = newsExcerpt(post, locale);
+const body = newsBody(post, locale);
 const others = NEWS.filter((n) => n.slug !== post.slug).slice(0, 3);
 
 type Block =
@@ -66,7 +66,7 @@ flush();
   <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 pb-20">
     <a href={`${p}/news/`} class="inline-flex items-center gap-1.5 text-sm text-emp-muted transition-colors hover:text-emp-gold">
       <span aria-hidden="true">←</span>
-      {locale === "zh-CN" ? "返回最新消息" : "返回最新消息"}
+      {d.news.back}
     </a>
     <header class="mt-8">
       <p class="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-semibold uppercase tracking-[0.35em] text-emp-gold">
@@ -127,7 +127,7 @@ flush();
             >
               <span class="text-[10px] font-semibold uppercase tracking-[0.25em] text-emp-gold">{d.news.cats[n.cat]}</span>
               <p class="mt-1.5 line-clamp-2 text-sm font-semibold text-emp-ink">
-                {locale === "zh-CN" ? n.titleHans : n.titleHant}
+                {newsTitle(n, locale)}
               </p>
             </a>
           ))

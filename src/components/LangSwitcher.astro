@@ -1,0 +1,43 @@
+---
+import type { Locale } from "../lib/site";
+import { LOCALES, localizedPath } from "../lib/site";
+import { t } from "../i18n";
+
+interface Props {
+  locale: Locale;
+  /** denser flags for the compact header row */
+  size?: "sm" | "md";
+}
+const { locale, size = "sm" } = Astro.props;
+const d = t(locale);
+const path = Astro.url.pathname;
+const btn =
+  size === "md"
+    ? "h-9 w-9 text-[1.35rem]"
+    : "h-8 w-8 text-[1.15rem] sm:h-[1.875rem] sm:w-[1.875rem] sm:text-[1.05rem]";
+---
+
+<nav class="flex items-center gap-1 sm:gap-1.5" aria-label={d.langMenu}>
+  {
+    LOCALES.map((loc) => {
+      const active = loc.code === locale;
+      return (
+        <a
+          href={localizedPath(loc.code, path)}
+          aria-label={loc.label}
+          aria-current={active ? "page" : undefined}
+          title={loc.label}
+          class:list={[
+            "inline-flex items-center justify-center rounded-full leading-none transition-all",
+            btn,
+            active
+              ? "bg-emp-gold/20 ring-2 ring-emp-gold/70 ring-offset-1 ring-offset-emp-bg scale-105"
+              : "opacity-70 hover:opacity-100 hover:bg-emp-gold/10",
+          ]}
+        >
+          <span aria-hidden="true" class="select-none">{loc.flag}</span>
+        </a>
+      );
+    })
+  }
+</nav>

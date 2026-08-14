@@ -46,9 +46,9 @@ const d = t(locale);
     <div class="grid gap-4 sm:grid-cols-3" data-reveal>
       {
         [
-          { src: "/images/cover-bath-pools.webp", alt: locale === "zh-CN" ? "巨亨桑拿场馆实景" : "巨亨桑拿場館實景" },
-          { src: "/images/water-bed-suite.webp", alt: locale === "zh-CN" ? "巨亨桑拿场馆实景" : "巨亨桑拿場館實景" },
-          { src: "/images/atrium-restaurant.webp", alt: locale === "zh-CN" ? "巨亨桑拿场馆实景" : "巨亨桑拿場館實景" },
+          { src: "/images/cover-bath-pools.webp", alt: d.venueAlt },
+          { src: "/images/water-bed-suite.webp", alt: d.venueAlt },
+          { src: "/images/atrium-restaurant.webp", alt: d.venueAlt },
         ].map((img) => (
           <div class="overflow-hidden rounded-xl border border-emp-line" data-reveal-child>
             <img src={img.src} alt={img.alt} class="aspect-[4/3] w-full object-cover" />
