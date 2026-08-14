@@ -1,20 +1,39 @@
 export const CONTACT = {
-  whatsapp: "+85257934448",
-  telegram: "@Aomensauna",
-  line: "https://line.me/ti/p/VZHFDSZnq9",
-  wechat: "AN99348",
+  /** Display + wa.me digits (spaces optional). */
+  whatsapp: "+853 6208 1126",
+  /** @username or phone with country code. */
+  telegram: "+853 6208 1126",
+  /** Full LINE add-friend URL (ID: empire_sauna02). */
+  line: "https://line.me/ti/p/~empire_sauna02",
+  /** LINE ID shown on contact page. */
+  lineId: "empire_sauna02",
+  /** WeChat ID for search / copy. */
+  wechat: "Empire_Sauna02",
   waText: "你好巨亨，我想預約，可以幫我安排嗎？",
   waTextHans: "你好巨亨，我想预约，可以帮我安排吗？",
 };
 
-export function waLink(locale: "zh-Hant" | "zh-CN") {
-  const text = locale === "zh-CN" ? CONTACT.waTextHans : CONTACT.waText;
-  return `https://wa.me/${CONTACT.whatsapp.replace("+", "")}?text=${encodeURIComponent(text)}`;
+/** Digits only, for wa.me / phone deep links. */
+export function phoneDigits(value: string) {
+  return value.replace(/[^0-9]/g, "");
 }
 
-export function tgLink(locale: "zh-Hant" | "zh-CN") {
-  const text = locale === "zh-CN" ? CONTACT.waTextHans : CONTACT.waText;
-  return `https://t.me/Aomensauna?text=${encodeURIComponent(text)}`;
+export function waLink(locale: "zh-Hant" | "zh-CN", prefill?: string) {
+  const text = prefill ?? (locale === "zh-CN" ? CONTACT.waTextHans : CONTACT.waText);
+  return `https://wa.me/${phoneDigits(CONTACT.whatsapp)}?text=${encodeURIComponent(text)}`;
+}
+
+/** Telegram: @username → t.me; phone → tg://resolve (opens app). */
+export function tgLink(locale: "zh-Hant" | "zh-CN", prefill?: string) {
+  const text = prefill ?? (locale === "zh-CN" ? CONTACT.waTextHans : CONTACT.waText);
+  const tg = CONTACT.telegram.trim();
+  const q = text ? `?text=${encodeURIComponent(text)}` : "";
+  if (tg.startsWith("@")) {
+    return `https://t.me/${tg.slice(1)}${q}`;
+  }
+  const phone = phoneDigits(tg);
+  // Phone chats open most reliably via the Telegram app deep link.
+  return `tg://resolve?phone=${phone}`;
 }
 
 export type Locale = "zh-Hant" | "zh-CN";

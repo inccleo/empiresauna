@@ -54,8 +54,10 @@ const d = t(locale);
     if (e.key === "Escape") close();
   });
   document.querySelector("[data-emp-wc-copy]")?.addEventListener("click", async () => {
+    const btn = document.querySelector<HTMLElement>("[data-emp-wc-copy]");
+    const value = btn?.dataset.copyValue || "";
     try {
-      await navigator.clipboard.writeText("AN99348");
+      await navigator.clipboard.writeText(value);
       if (label) label.textContent = copied;
     } catch {
       /* ignore */

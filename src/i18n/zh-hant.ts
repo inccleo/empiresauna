@@ -49,7 +49,7 @@ export const hant = {
   wechatTitle: "加我們微信",
   wechatHint1: "方式一：用微信掃上方 QR code",
   wechatHint2: "方式二：複製微信號，於微信搜尋",
-  wechatCopy: "複製微信號：AN99348",
+  wechatCopy: "複製微信號：Empire_Sauna02",
   wechatCopied: "已複製",
   close: "關閉",
   conciergeName: "巨亨小管家",
@@ -337,10 +337,10 @@ export const hant = {
     ],
     note: "ℹ️ 本網站為巨亨桑拿之預約代理，並非官方網站，為您提供預約安排與專車接送服務。",
     channels: [
-      { k: "WhatsApp", v: "+85257934448" },
-      { k: "Telegram", v: "@Aomensauna" },
-      { k: "LINE", v: "加入好友" },
-      { k: "WeChat", v: "AN99348" },
+      { k: "WhatsApp", v: "+853 6208 1126" },
+      { k: "Telegram", v: "+853 6208 1126" },
+      { k: "LINE", v: "empire_sauna02" },
+      { k: "WeChat", v: "Empire_Sauna02" },
     ],
   },
   overnight: {

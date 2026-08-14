@@ -177,7 +177,10 @@ const gem = `<svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true" 
       const want = interest?.key === "info" ? c.moreInfo : (interest?.label ?? "");
       const when = time?.key === "other" ? c.otherConfirm : (time?.label ?? "");
       const num = data.contact.wa.replace(/[^0-9]/g, "");
-      const tg = data.contact.tg.replace("@", "");
+      const tgRaw = data.contact.tg.trim();
+      const tgHref = tgRaw.startsWith("@")
+        ? `https://t.me/${tgRaw.slice(1)}?text=${encodeURIComponent(waText())}`
+        : `tg://resolve?phone=${tgRaw.replace(/[^0-9]/g, "")}`;
       const msg = encodeURIComponent(waText());
       const el = document.createElement("div");
       el.className = "emp-cg-reco";
@@ -190,7 +193,7 @@ const gem = `<svg width="28" height="28" viewBox="0 0 64 64" aria-hidden="true" 
         </ul>
         <p class="emp-cg-reco-match">${c.pickChannel}</p>
         <a href="https://wa.me/${num}?text=${msg}" target="_blank" rel="noopener" class="emp-cg-btn emp-cg-btn-wa">${waIcon}${c.wa}</a>
-        <a href="https://t.me/${tg}?text=${msg}" target="_blank" rel="noopener" class="emp-cg-btn emp-cg-btn-ghost"><img src="/icons/telegram.svg" width="16" height="16" alt="">${c.tg}</a>
+        <a href="${tgHref}" target="_blank" rel="noopener" class="emp-cg-btn emp-cg-btn-ghost"><img src="/icons/telegram.svg" width="16" height="16" alt="">${c.tg}</a>
         <div class="emp-cg-btn-row">
           <a href="${data.contact.line}" target="_blank" rel="noopener" class="emp-cg-btn emp-cg-btn-ghost emp-cg-btn-half"><img src="/icons/line.svg" width="16" height="16" alt="">LINE</a>
           <button type="button" class="emp-cg-btn emp-cg-btn-ghost emp-cg-btn-half" data-cg-wechat><img src="/icons/wechat.svg" width="16" height="16" alt="">WeChat</button>
