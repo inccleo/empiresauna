@@ -39,12 +39,9 @@ const d = t(locale);
       }
     </div>
     <h2 class="mt-16 text-center font-serif text-3xl font-bold text-emp-ink" data-reveal>{d.gallery.videoH2}</h2>
-    <div class="mt-10 grid gap-6 sm:grid-cols-2 max-w-3xl mx-auto" data-reveal>
-      <video class="w-full rounded-2xl border border-emp-line bg-black" controls preload="none" playsinline poster="/video/empire-tour-43-poster.jpg">
-        <source src="/video/empire-tour-43.mp4" type="video/mp4" />
-      </video>
-      <video class="w-full rounded-2xl border border-emp-line bg-black" controls preload="none" playsinline poster="/video/empire-tour-45-poster.jpg">
-        <source src="/video/empire-tour-45.mp4" type="video/mp4" />
+    <div class="mt-10 max-w-3xl mx-auto" data-reveal>
+      <video class="w-full rounded-2xl border border-emp-line bg-black aspect-video" controls preload="metadata" playsinline poster="/video/empire-tour-poster.jpg">
+        <source src="/video/empire-tour.mp4" type="video/mp4" />
       </video>
     </div>
   </section>

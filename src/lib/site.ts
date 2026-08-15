@@ -153,6 +153,7 @@ export const GALLERY: GalleryItem[] = [
   { src: "/images/gallery/lobby-art-sofa.webp", caption: cap("大堂藝術休息區", "大堂艺术休息区", "Lobby art lounge", "ロビーのアートラウンジ", "로비 아트 라운지") },
   { src: "/images/gallery/lobby-entrance-hall.webp", caption: cap("門廳與藝術牆", "门厅与艺术墙", "Entrance hall & art wall", "エントランスとアートウォール", "현관과 아트 월") },
   { src: "/images/gallery/reception-desk.webp", caption: cap("接待前台", "接待前台", "Reception desk", "受付カウンター", "리셉션 데스크") },
+  { src: "/images/gallery/room-area-lobby.webp", caption: cap("房區大堂", "房区大堂", "Room-area lobby", "客室エリアのロビー", "객실 구역 로비") },
   // 樓梯 / 走廊
   { src: "/images/grand-staircase.webp", caption: cap("氣派樓梯", "气派楼梯", "Grand staircase", "大階段", "그랜드 계단") },
   { src: "/images/grand-staircase-lg.webp", caption: cap("光柱旋轉樓梯", "光柱旋转楼梯", "Light-column spiral stairs", "光の柱の螺旋階段", "라이트 컬럼 나선 계단") },

@@ -1,27 +1,38 @@
 @import "tailwindcss";
 
+/* 英文：Bodoni 72 Bold（仅覆盖拉丁字符，中文继续走苹方） */
+@font-face {
+  font-family: "Bodoni 72";
+  src: url("/fonts/bodoni-72-bold.ttf") format("truetype");
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0100-024F, U+1E00-1EFF, U+2000-206F, U+2070-209F, U+20A0-20CF, U+2100-214F;
+}
+
 @theme {
-  --font-sans: "Noto Sans HK", "Noto Sans JP", "Noto Sans KR", "Inter", system-ui, sans-serif;
-  --font-serif: "Noto Serif HK", "Noto Sans JP", "Noto Sans KR", "Playfair Display", Georgia, serif;
-  --color-emp-bg: #0a0a0c;
-  --color-emp-bg-2: #121116;
-  --color-emp-bg-3: #1b1920;
-  --color-emp-line: #2c2833;
-  --color-emp-gold: #c8a24a;
-  --color-emp-gold-light: #e6c878;
+  /* 英文 Bodoni 优先（unicode-range）；中文苹方；日韩 Noto */
+  --font-sans: "Bodoni 72", "PingFang HK", "PingFang TC", "PingFang SC", "Microsoft JhengHei", "Microsoft YaHei", "Noto Sans JP", "Noto Sans KR", system-ui, sans-serif;
+  --font-serif: "Bodoni 72", "PingFang HK", "PingFang TC", "PingFang SC", "Microsoft JhengHei", "Microsoft YaHei", "Noto Sans JP", "Noto Sans KR", Georgia, serif;
+  --color-emp-bg: #0E1913;
+  --color-emp-bg-2: #15221B;
+  --color-emp-bg-3: #1E2E26;
+  --color-emp-line: #294038;
+  --color-emp-gold: #eecd8b;
+  --color-emp-gold-light: #f6f3ac;
   --color-emp-ink: #f4efe6;
-  --color-emp-muted: #a39d92;
+  --color-emp-muted: #BCB893;
   --color-emp-wa-green: #25d366;
   --color-emp-wa-green-dark: #1ebe5d;
 }
 
 :root {
-  --emp-bg: #0a0a0c;
-  --emp-bg-2: #121116;
-  --emp-gold: #c8a24a;
-  --emp-gold-light: #e6c878;
-  --emp-grad: linear-gradient(90deg, #9c7c32, #e6c878 45%, #c8a24a);
-  --emp-grad-soft: linear-gradient(135deg, #c8a24a29, #e6c8780a);
+  --emp-bg: #0E1913;
+  --emp-bg-2: #15221B;
+  --emp-gold: #eecd8b;
+  --emp-gold-light: #f6f3ac;
+  --emp-grad: linear-gradient(90deg, #9f8961, #eecd8b 40%, #fed940 75%, #ffd056);
+  --emp-grad-soft: linear-gradient(135deg, #eecd8b29, #f6f3ac0a);
 }
 
 html {
@@ -29,7 +40,7 @@ html {
   scroll-behavior: smooth;
   background-color: var(--emp-bg);
   overflow-x: clip;
-  scrollbar-color: #c8a24a73 #0a0a0c;
+  scrollbar-color: #eecd8b73 #0E1913;
   scrollbar-width: thin;
 }
 
@@ -47,7 +58,7 @@ body {
 
 ::selection {
   color: #fff;
-  background: #c8a24a4d;
+  background: #eecd8b4d;
 }
 
 ::-webkit-scrollbar {
@@ -55,17 +66,17 @@ body {
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #0a0a0c;
+  background: #0E1913;
 }
 ::-webkit-scrollbar-thumb {
-  background: #c8a24a66;
+  background: #eecd8b66;
   border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #c8a24ab3;
+  background: #eecd8bb3;
 }
 ::-webkit-scrollbar-corner {
-  background: #0a0a0c;
+  background: #0E1913;
 }
 
 .emp-grad-text {
@@ -77,23 +88,23 @@ body {
 }
 
 .emp-rule {
-  background: linear-gradient(90deg, #0000, #c8a24a99, #0000);
+  background: linear-gradient(90deg, #0000, #eecd8b99, #0000);
   height: 1px;
 }
 
 .emp-marble {
   background-image:
-    radial-gradient(120% 80% at 20% 0, #c8a24a0f, #0000 60%),
-    radial-gradient(100% 90% at 100% 100%, #e6c8780d, #0000 55%);
+    radial-gradient(120% 80% at 20% 0, #eecd8b0f, #0000 60%),
+    radial-gradient(100% 90% at 100% 100%, #f6f3ac0d, #0000 55%);
 }
 
 @keyframes empGlow {
   0%,
   to {
-    box-shadow: 0 0 #c8a24a80, 0 12px 30px #c8a24a47;
+    box-shadow: 0 0 #eecd8b80, 0 12px 30px #eecd8b47;
   }
   50% {
-    box-shadow: 0 0 0 10px #c8a24a00, 0 12px 30px #c8a24a66;
+    box-shadow: 0 0 0 10px #eecd8b00, 0 12px 30px #eecd8b66;
   }
 }
 @keyframes empKen {
@@ -148,9 +159,9 @@ body {
 }
 
 #site-header.is-scrolled {
-  background-color: #0a0a0cd9;
+  background-color: #0E1913d9;
   backdrop-filter: blur(12px);
-  border-bottom-color: var(--color-emp-line, #2c2833);
+  border-bottom-color: var(--color-emp-line, #294038);
   box-shadow: 0 8px 30px #00000059;
 }
 
@@ -194,7 +205,7 @@ body {
 .emp-wc-scrim {
   position: absolute;
   inset: 0;
-  background: #08060cd1;
+  background: #0A120Ed1;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   border: 0;
@@ -207,8 +218,8 @@ body {
   max-width: 360px;
   width: 100%;
   padding: 28px 24px 22px;
-  background: linear-gradient(180deg, #16151b, #0a0a0c);
-  border: 1px solid rgba(200, 162, 74, 0.34);
+  background: linear-gradient(180deg, #15221B, #0E1913);
+  border: 1px solid rgba(238, 205, 139, 0.34);
   border-radius: 22px;
   box-shadow: 0 24px 60px #0009;
   color: #f4efe6;
@@ -237,7 +248,7 @@ body {
   color: #fff;
 }
 .emp-wc-title {
-  color: #e6c878;
+  color: #f6f3ac;
   font-size: 18px;
   font-weight: 800;
   margin: 0 0 18px;
@@ -261,7 +272,7 @@ body {
   display: block;
 }
 .emp-wc-hint {
-  color: #a39d92f2;
+  color: #BCB893f2;
   font-size: 13.5px;
   line-height: 1.65;
   margin: 0 0 16px;
@@ -273,10 +284,10 @@ body {
   justify-content: center;
   gap: 8px;
   padding: 12px 16px;
-  background: linear-gradient(135deg, #c8a24a, #9c7c32);
+  background: linear-gradient(135deg, #eecd8b, #9f8961);
   border: 0;
   border-radius: 12px;
-  color: #0a0a0c;
+  color: #0E1913;
   font-size: 14px;
   font-weight: 800;
   letter-spacing: 0.02em;
@@ -291,7 +302,7 @@ body {
   position: fixed;
   inset: 0;
   z-index: 90;
-  background: rgba(8, 8, 10, 0.62);
+  background: rgba(10, 18, 14, 0.62);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
   opacity: 0;
@@ -324,12 +335,12 @@ body {
   gap: 10px;
   padding: 9px 18px 9px 10px;
   border-radius: 999px;
-  background: linear-gradient(135deg, #1b1920, #0a0a0c);
+  background: linear-gradient(135deg, #1E2E26, #0E1913);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(200, 162, 74, 0.45);
+  border: 1px solid rgba(238, 205, 139, 0.45);
   box-shadow:
-    0 14px 34px rgba(200, 162, 74, 0.3),
+    0 14px 34px rgba(238, 205, 139, 0.3),
     0 4px 10px rgba(0, 0, 0, 0.4);
   color: #f4efe6;
   cursor: pointer;
@@ -340,11 +351,11 @@ body {
 }
 .emp-cg-launcher:hover {
   transform: translateY(-1px);
-  border-color: rgba(230, 200, 120, 0.7);
+  border-color: rgba(246, 243, 172, 0.7);
 }
 .emp-cg-launcher-ring {
   display: inline-flex;
-  filter: drop-shadow(0 0 8px rgba(200, 162, 74, 0.55));
+  filter: drop-shadow(0 0 8px rgba(238, 205, 139, 0.55));
 }
 .emp-cg-launcher-text {
   display: flex;
@@ -359,7 +370,7 @@ body {
 }
 .emp-cg-launcher-hint {
   font-size: 10.5px;
-  color: #c8a24a;
+  color: #eecd8b;
   letter-spacing: 0.12em;
 }
 .emp-cg-ping {
@@ -369,15 +380,15 @@ body {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #e6c878;
-  box-shadow: 0 0 0 2px #0a0a0c;
+  background: #f6f3ac;
+  box-shadow: 0 0 0 2px #0E1913;
 }
 .emp-cg-ping::after {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: #e6c878;
+  background: #f6f3ac;
   opacity: 0.7;
   animation: empCgPing 1.7s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
@@ -402,14 +413,14 @@ body {
   display: flex;
   flex-direction: column;
   max-height: min(70vh, 560px);
-  background: linear-gradient(180deg, #14131a, #0a0a0c);
+  background: linear-gradient(180deg, #121C17, #0E1913);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(200, 162, 74, 0.35);
+  border: 1px solid rgba(238, 205, 139, 0.35);
   border-radius: 20px;
   box-shadow:
     0 26px 60px rgba(0, 0, 0, 0.6),
-    0 0 60px rgba(200, 162, 74, 0.22);
+    0 0 60px rgba(238, 205, 139, 0.22);
   overflow: hidden;
   transform: translateY(10px) scale(0.96);
   opacity: 0;
@@ -424,12 +435,12 @@ body {
   align-items: center;
   gap: 10px;
   padding: 12px 14px;
-  background: rgba(200, 162, 74, 0.13);
-  border-bottom: 1px solid rgba(200, 162, 74, 0.22);
+  background: rgba(238, 205, 139, 0.13);
+  border-bottom: 1px solid rgba(238, 205, 139, 0.22);
 }
 .emp-cg-avatar {
   display: inline-flex;
-  filter: drop-shadow(0 0 6px rgba(200, 162, 74, 0.5));
+  filter: drop-shadow(0 0 6px rgba(238, 205, 139, 0.5));
 }
 .emp-cg-head-text {
   display: flex;
@@ -440,7 +451,7 @@ body {
 .emp-cg-title {
   font-size: 14px;
   font-weight: 800;
-  color: #e6c878;
+  color: #f6f3ac;
   letter-spacing: 0.03em;
 }
 .emp-cg-sub {
@@ -494,17 +505,17 @@ body {
 .emp-cg-msg.is-bot {
   align-self: flex-start;
   background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(200, 162, 74, 0.2);
+  border: 1px solid rgba(238, 205, 139, 0.2);
   border-bottom-left-radius: 6px;
   color: #f4efe6;
 }
 .emp-cg-msg.is-user {
   align-self: flex-end;
-  background: linear-gradient(135deg, #c8a24a, #9c7c32);
+  background: linear-gradient(135deg, #eecd8b, #9f8961);
   border-bottom-right-radius: 6px;
   color: #fff;
   font-weight: 600;
-  box-shadow: 0 6px 16px rgba(200, 162, 74, 0.35);
+  box-shadow: 0 6px 16px rgba(238, 205, 139, 0.35);
 }
 @keyframes empCgIn {
   from {
@@ -525,7 +536,7 @@ body {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: rgba(230, 200, 120, 0.75);
+  background: rgba(246, 243, 172, 0.75);
   animation: empCgBlink 1.1s ease-in-out infinite;
 }
 .emp-cg-typing span:nth-child(2) {
@@ -550,11 +561,11 @@ body {
   flex-shrink: 0;
   border-radius: 16px;
   overflow: hidden;
-  border: 1px solid rgba(200, 162, 74, 0.32);
-  background: linear-gradient(180deg, #1b1920, #0a0a0c);
+  border: 1px solid rgba(238, 205, 139, 0.32);
+  background: linear-gradient(180deg, #1E2E26, #0E1913);
   box-shadow:
     0 12px 30px rgba(0, 0, 0, 0.45),
-    0 0 40px rgba(200, 162, 74, 0.2);
+    0 0 40px rgba(238, 205, 139, 0.2);
   animation: empCgIn 0.32s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 .emp-cg-reco-pad {
@@ -564,7 +575,7 @@ body {
   margin: 0 0 10px;
   font-size: 10px;
   letter-spacing: 0.3em;
-  color: #e6c878;
+  color: #f6f3ac;
   font-weight: 700;
 }
 .emp-cg-reco-list {
@@ -587,8 +598,8 @@ body {
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.18em;
-  color: #e6c878;
-  border: 1px solid rgba(230, 200, 120, 0.4);
+  color: #f6f3ac;
+  border: 1px solid rgba(246, 243, 172, 0.4);
   border-radius: 6px;
   padding: 1px 6px;
 }
@@ -626,10 +637,10 @@ body {
 .emp-cg-btn-ghost {
   background: rgba(255, 255, 255, 0.05);
   color: #f4efe6;
-  border: 1px solid rgba(200, 162, 74, 0.3);
+  border: 1px solid rgba(238, 205, 139, 0.3);
 }
 .emp-cg-btn-ghost:hover {
-  border-color: rgba(230, 200, 120, 0.6);
+  border-color: rgba(246, 243, 172, 0.6);
 }
 .emp-cg-btn-row {
   display: flex;
@@ -640,8 +651,8 @@ body {
 }
 .emp-cg-foot {
   padding: 8px 14px calc(12px + env(safe-area-inset-bottom) * 0);
-  border-top: 1px solid rgba(200, 162, 74, 0.16);
-  background: rgba(10, 5, 20, 0.35);
+  border-top: 1px solid rgba(238, 205, 139, 0.16);
+  background: rgba(14, 25, 19, 0.35);
 }
 .emp-cg-chips {
   display: flex;
@@ -674,8 +685,8 @@ body {
   gap: 1px;
   padding: 8px 14px;
   border-radius: 14px;
-  background: rgba(200, 162, 74, 0.16);
-  border: 1px solid rgba(230, 200, 120, 0.4);
+  background: rgba(238, 205, 139, 0.16);
+  border: 1px solid rgba(246, 243, 172, 0.4);
   color: #f4efe6;
   font-size: 13px;
   font-weight: 700;
@@ -687,8 +698,8 @@ body {
   animation: empCgIn 0.3s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 .emp-cg-chip:hover {
-  background: rgba(200, 162, 74, 0.32);
-  border-color: rgba(230, 200, 120, 0.7);
+  background: rgba(238, 205, 139, 0.32);
+  border-color: rgba(246, 243, 172, 0.7);
   transform: translateY(-1px);
 }
 .emp-cg-chip-muted {
@@ -723,8 +734,8 @@ body {
   display: inline-flex;
   align-items: center;
   border-radius: 999px;
-  border: 1px solid rgba(200, 162, 74, 0.28);
-  background: #1b192066;
+  border: 1px solid rgba(238, 205, 139, 0.28);
+  background: #1E2E2666;
   color: #f4efe6cc;
   font-size: 12px;
   letter-spacing: 0.04em;
@@ -736,9 +747,9 @@ body {
 }
 .emp-chip:hover,
 .emp-chip[aria-pressed="true"] {
-  border-color: rgba(200, 162, 74, 0.7);
-  background: #c8a24a22;
-  color: #e6c878;
+  border-color: rgba(238, 205, 139, 0.7);
+  background: #eecd8b22;
+  color: #f6f3ac;
 }
 .news-filterbar {
   background: color-mix(in srgb, var(--color-emp-bg-2) 88%, transparent);
@@ -756,13 +767,13 @@ body {
   color: var(--color-emp-muted);
 }
 .news-chip:hover {
-  border-color: rgba(200, 162, 74, 0.5);
+  border-color: rgba(238, 205, 139, 0.5);
   color: var(--color-emp-gold);
 }
 .news-chip[aria-pressed="true"] {
   border-color: var(--color-emp-gold);
   background: var(--color-emp-gold);
-  color: #0a0a0c;
+  color: #0E1913;
 }
 .news-chip-row {
   scrollbar-width: none;
@@ -801,7 +812,7 @@ body {
   margin-top: 0.55rem;
   height: 1px;
   max-width: 72px;
-  background: linear-gradient(90deg, rgba(200, 162, 74, 0.7), transparent);
+  background: linear-gradient(90deg, rgba(238, 205, 139, 0.7), transparent);
 }
 .emp-prose h3 {
   margin-top: 1.8em;
@@ -816,7 +827,7 @@ body {
 }
 .emp-prose a {
   color: var(--color-emp-gold);
-  text-decoration: underline rgba(200, 162, 74, 0.45);
+  text-decoration: underline rgba(238, 205, 139, 0.45);
   text-underline-offset: 4px;
   transition: color 0.2s;
 }
@@ -842,7 +853,7 @@ body {
 }
 .emp-prose blockquote {
   border-left: 3px solid var(--color-emp-gold);
-  background: rgba(200, 162, 74, 0.06);
+  background: rgba(238, 205, 139, 0.06);
   padding: 0.9em 1.2em;
   border-radius: 0 0.75rem 0.75rem 0;
   color: var(--color-emp-muted);
@@ -869,7 +880,7 @@ body {
   vertical-align: top;
 }
 .emp-prose tbody tr:nth-child(2n) {
-  background: rgba(27, 25, 32, 0.45);
+  background: rgba(30, 46, 38, 0.45);
 }
 .emp-prose strong {
   color: var(--color-emp-gold-light);
@@ -905,3 +916,4 @@ body {
     transition-delay: 0s !important;
   }
 }
+/* palette: #0E1913 1786708150 */
