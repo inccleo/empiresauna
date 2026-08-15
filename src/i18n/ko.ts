@@ -53,7 +53,11 @@ export const ko: typeof hant = {
     { href: "/privacy/", label: "개인정보" },
   ],
   footerBlurb: "마카오 최신 럭셔리 테마 사우나 · 마카오 반도 · 영업시간 17:00 – 06:00.",
-  footerDisclaimer: "본 사이트는 거헝 사우나의 유일 공식 웹사이트입니다.",
+  footerOfficialTitle: "【공식 유일 성명】",
+  footerOfficialLead:
+    "본 사이트는 【거헝 사우나】 전 인터넷 유일 공식 웹사이트입니다. 최근 당사 브랜드를 사칭한 가짜 사이트가 확인되고 있으니, 공식 URL만 이용해 주세요: ",
+  footerOfficialBody:
+    "본 매장은 합법·규정 준수 경영을 고수하며, 위법·위반 서비스를 일절 제공하지 않습니다. 본 공식 사이트 링크 외에서 발생한 거래·서비스는 당사와 무관하며 책임지지 않습니다. 사기에 주의해 주세요.",
   footerCopy: "© 2026 거헝 사우나 Empire Sauna. All rights reserved.",
   footerAdult: "본 사이트는 성인 전용입니다. 매장 서비스는 만 18세 이상만 이용 가능합니다.",
   wa: "WhatsApp 예약",

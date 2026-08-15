@@ -53,7 +53,11 @@ export const en: typeof hant = {
     { href: "/privacy/", label: "Privacy" },
   ],
   footerBlurb: "Macau's new luxury theme sauna · Macau Peninsula · Open 17:00 – 06:00.",
-  footerDisclaimer: "This is the only official website of Empire Sauna.",
+  footerOfficialTitle: "[Official Notice]",
+  footerOfficialLead:
+    "This is the only official website of Empire Sauna worldwide. Fraudulent sites have recently been set up under our brand name — please use only the official URL: ",
+  footerOfficialBody:
+    "We operate fully within the law and do not provide any illegal or non-compliant services. Any transactions or services arranged outside this official site are unrelated to us, and we accept no responsibility for them. Please stay alert and avoid scams.",
   footerCopy: "© 2026 巨亨桑拿 Empire Sauna. All rights reserved.",
   footerAdult: "This website is for adults only. On-site services require guests to be 18+.",
   wa: "WhatsApp booking",

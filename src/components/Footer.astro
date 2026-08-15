@@ -1,6 +1,6 @@
 ---
 import type { Locale } from "../lib/site";
-import { CONTACT, prefix, waLink, tgLink } from "../lib/site";
+import { CONTACT, OFFICIAL_URL, prefix, waLink, tgLink } from "../lib/site";
 import { t } from "../i18n";
 import LangSwitcher from "./LangSwitcher.astro";
 
@@ -10,6 +10,7 @@ interface Props {
 const { locale } = Astro.props;
 const d = t(locale);
 const p = prefix(locale);
+const officialHost = OFFICIAL_URL.replace(/^https?:\/\//, "");
 ---
 
 <footer class="border-t border-emp-line bg-emp-bg-2 emp-marble">
@@ -59,7 +60,22 @@ const p = prefix(locale);
       </div>
     </div>
     <div class="emp-rule my-9"></div>
-    <p class="mb-4 text-center text-xs text-emp-muted/80 sm:text-left">{d.footerDisclaimer}</p>
+    <div
+      class="mb-5 rounded-sm border border-emp-gold/25 bg-emp-bg/50 px-4 py-4 text-xs leading-relaxed text-emp-muted sm:px-5 sm:py-5 sm:text-[13px]"
+      role="note"
+    >
+      <p class="font-semibold tracking-wide text-emp-gold">{d.footerOfficialTitle}</p>
+      <p class="mt-2 text-emp-ink/75">
+        {d.footerOfficialLead}
+        <a
+          href={OFFICIAL_URL}
+          class="font-medium text-emp-gold underline decoration-emp-gold/40 underline-offset-2 transition-colors hover:text-emp-gold-light hover:decoration-emp-gold-light"
+          rel="noopener noreferrer"
+          >{officialHost}</a
+        >
+      </p>
+      <p class="mt-2 text-emp-ink/70">{d.footerOfficialBody}</p>
+    </div>
     <div class="flex flex-col items-center justify-between gap-3 text-xs text-emp-muted sm:flex-row">
       <p>{d.footerCopy}</p>
       <p class="max-w-md text-center sm:text-right">{d.footerAdult}</p>

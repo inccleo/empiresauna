@@ -53,7 +53,11 @@ export const hant = {
     { href: "/privacy/", label: "私隱政策" },
   ],
   footerBlurb: "澳門全新奢華主題桑拿會所・澳門半島・營業時間 17:00 – 06:00。",
-  footerDisclaimer: "本網站為巨亨桑拿之唯一官方網站。",
+  footerOfficialTitle: "【官方唯一聲明】",
+  footerOfficialLead:
+    "本網站為【巨亨桑拿】全網唯一官方網站。近期有不法份子冒用本品牌名義架設假冒網站，請認準官方唯一網址：",
+  footerOfficialBody:
+    "本店始終堅持合法合規經營，絕無提供任何違規或違法之服務。凡非本站官方連結所產生之任何交易與服務，均與本公司無關，本公司概不負責。請廣大顧客提高警覺，切勿上當受騙！",
   footerCopy: "© 2026 巨亨桑拿 Empire Sauna 版權所有。",
   footerAdult: "本網站僅供成年人瀏覽。場內服務須年滿 18 歲。",
   wa: "WhatsApp 預約",

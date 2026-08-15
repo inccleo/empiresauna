@@ -53,7 +53,11 @@ export const hans: typeof hant = {
     { href: "/privacy/", label: "隐私政策" },
   ],
   footerBlurb: "澳门全新奢华主题桑拿会所・澳门半岛・营业时间 17:00 – 06:00。",
-  footerDisclaimer: "本网站为巨亨桑拿之唯一官方网站。",
+  footerOfficialTitle: "【官方唯一声明】",
+  footerOfficialLead:
+    "本网站为【巨亨桑拿】全网唯一官方网站。近期有不法分子冒用本品牌名义架设假冒网站，请认准官方唯一网址：",
+  footerOfficialBody:
+    "本店始终坚持合法合规经营，绝无提供任何违规或违法之服务。凡非本站官方链接所产生之任何交易与服务，均与本公司无关，本公司概不负责。请广大顾客提高警觉，切勿上当受骗！",
   footerCopy: "© 2026 巨亨桑拿 Empire Sauna 版权所有。",
   footerAdult: "本网站仅供成年人浏览。场内服务须年满 18 岁。",
   wa: "WhatsApp 预约",

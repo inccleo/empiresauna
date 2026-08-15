@@ -1,3 +1,6 @@
+/** Canonical official website — use in anti-fraud notices and SEO. */
+export const OFFICIAL_URL = "https://www.empiresaunaofficial.com";
+
 export const CONTACT = {
   /** Display + wa.me digits (spaces optional). */
   whatsapp: "+853 6208 1126",

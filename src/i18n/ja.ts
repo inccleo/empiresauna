@@ -53,7 +53,11 @@ export const ja: typeof hant = {
     { href: "/privacy/", label: "プライバシー" },
   ],
   footerBlurb: "マカオ最新のラグジュアリーテーマサウナ・マカオ半島・営業時間 17:00 – 06:00。",
-  footerDisclaimer: "本サイトは巨亨サウナの唯一の公式サイトです。",
+  footerOfficialTitle: "【公式唯一声明】",
+  footerOfficialLead:
+    "本サイトは【巨亨サウナ】の全ネット唯一の公式サイトです。最近、当社ブランドを偽った偽サイトが確認されています。公式URLはこちらです：",
+  footerOfficialBody:
+    "当店は合法・コンプライアンスを徹底し、違法・規約違反のサービスは一切提供しておりません。本公式サイト以外のリンク経由の取引・サービスは当社と無関係であり、責任を負いません。十分ご注意ください。",
   footerCopy: "© 2026 巨亨サウナ Empire Sauna. All rights reserved.",
   footerAdult: "本サイトは成人向けです。館内サービスは18歳以上の方に限ります。",
   wa: "WhatsApp 予約",
